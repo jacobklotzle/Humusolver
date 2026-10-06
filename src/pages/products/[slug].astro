@@ -1,0 +1,87 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import FaqList from '../../components/FaqList.astro';
+import QuoteAside from '../../components/QuoteAside.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import Ph from '../../components/Ph.astro';
+import Icon from '../../components/Icon.astro';
+import { business } from '../../site.config';
+import { productSchema, faqSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((p) => ({ params: { slug: p.id }, props: { product: p } }));
+}
+interface Props { product: CollectionEntry<'products'>; }
+const { product } = Astro.props;
+const p = product.data;
+const crumbs = [{ name: 'Products', href: '/products/' }, { name: p.name, href: `/products/${product.id}/` }];
+const og = await getImage({ src: p.image, width: 1200, height: 630, format: 'jpg' });
+const uses = (await getCollection('uses')).filter((u) => u.data.products.includes(product.id)).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title={p.title} description={p.description} crumbs={crumbs} ogImage={og.src}
+  schema={[productSchema({ name: p.name, summary: p.summary, slug: product.id, image: og.src, packages: p.packages }), ...(p.faqs.length ? [faqSchema(p.faqs)] : [])]}
+  cta={{ heading: `Get a quote on ${p.name}` }}>
+  <PageHero eyebrow={p.form} title={p.name} lede={p.summary} image={p.image} imageAlt={p.imageAlt} crumbs={crumbs}>
+    <div class="btn-row" style="margin-top:1.5rem">
+      <a class="btn" href={`/quote/?product=${product.id}`}>Get a quote <Icon name="arrow" /></a>
+      <a class="btn btn--ghost" href={business.phoneHref}><Icon name="phone" /> {business.phone}</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap content-grid">
+      <div class="prose">
+        {p.body.map((para) => <p><Ph text={para} /></p>)}
+
+        <h2>Best for</h2>
+        <ul>{p.bestFor.map((b) => <li>{b}</li>)}</ul>
+
+        <h2>Application rates</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">Use</th><th scope="col">Rate</th><th scope="col">Notes</th></tr></thead>
+            <tbody>{p.rates.map((r) => <tr><td>{r.use}</td><td><strong>{r.rate}</strong></td><td><Ph text={r.notes ?? ''} /></td></tr>)}</tbody>
+          </table>
+        </div>
+        <p class="note">These are general rates. Follow the product label. <Ph text="[[LABEL CHECK: link the current product label and SDS here]]" /></p>
+
+        <h2>Sizes and pricing</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">Package</th><th scope="col">Price</th><th scope="col"></th></tr></thead>
+            <tbody>{p.packages.map((pk) => (
+              <tr><td>{pk.size}</td><td><Ph text={pk.price} /></td><td>{pk.note ?? ''}</td></tr>
+            ))}</tbody>
+          </table>
+        </div>
+        <p>Freight is quoted per order, or pick up at will-call in Monticello, Indiana. <a href="/services/">Shipping details</a>.</p>
+
+        {uses.length > 0 && (<>
+          <h2>Ways to use it</h2>
+          <ul>{uses.map((u) => <li><a href={`/uses/${u.id}/`}>{u.data.cardTitle}</a>: {u.data.summary}</li>)}</ul>
+        </>)}
+
+        <h2>Label & safety data</h2>
+        <Placeholder text="[[LABEL CHECK: upload product label PDF and SDS; add guaranteed analysis]]" minHeight="6rem" />
+      </div>
+      <aside class="content-aside"><QuoteAside product={product.id} heading={`Price ${p.name}`} /></aside>
+    </div>
+  </section>
+
+  {p.faqs.length > 0 && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <h2>Questions about {p.name}</h2>
+        <FaqList items={p.faqs} />
+      </div>
+    </section>
+  )}
+</BaseLayout>
+<style>
+  .content-grid { display: grid; gap: 3rem; }
+  @media (min-width: 1000px) { .content-grid { grid-template-columns: minmax(0, 1fr) 20rem; } .content-aside { position: sticky; top: 6rem; align-self: start; } }
+</style>

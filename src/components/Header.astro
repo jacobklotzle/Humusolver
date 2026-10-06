@@ -80,10 +80,10 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     cursor: pointer;
     place-items: center;
   }
-  .menu-btn svg { width: 24px; height: 24px; }
-  .menu-btn__close { display: none; }
-  .menu-btn[aria-expanded='true'] .menu-btn__open { display: none; }
-  .menu-btn[aria-expanded='true'] .menu-btn__close { display: block; }
+  .menu-btn :global(svg) { width: 24px; height: 24px; }
+  :global(.menu-btn__close) { display: none; }
+  .menu-btn[aria-expanded='true'] :global(.menu-btn__open) { display: none; }
+  .menu-btn[aria-expanded='true'] :global(.menu-btn__close) { display: block; }
 
   @media (min-width: 1100px) {
     .site-nav { display: flex; align-items: center; gap: 1rem; }

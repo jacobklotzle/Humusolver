@@ -1,0 +1,16 @@
+---
+import ContentPage from '../layouts/ContentPage.astro';
+import QuoteAside from '../components/QuoteAside.astro';
+import { business } from '../site.config';
+---
+<ContentPage id="about-us" crumbName="About us">
+  <div slot="aside" class="stack">
+    <div class="card">
+      <h2 style="font-size:var(--step-1)">Talk to us</h2>
+      <ul class="check-list">
+        {business.people.map((p) => <li><span><strong>{p.name}</strong>, {p.role}<br /><a href={p.phoneHref}>{p.phone}</a></span></li>)}
+      </ul>
+    </div>
+    <QuoteAside />
+  </div>
+</ContentPage>

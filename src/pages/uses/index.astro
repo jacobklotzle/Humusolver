@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import UseCard from '../../components/UseCard.astro';
+
+const uses = (await getCollection('uses')).sort((a, b) => a.data.order - b.data.order);
+const audiences = uses.filter((u) => u.data.kind === 'audience');
+const methods = uses.filter((u) => u.data.kind === 'method');
+const icons: Record<string, string> = { 'row-starter': 'seed', 'broadcast-soil': 'leaf', 'foliar-spray': 'drop', 'irrigation-injection': 'drop', 'seed-treatment': 'seed', 'hydroponics-greenhouse': 'sprout', 'nitrogen-programs': 'root' };
+const crumbs = [{ name: 'Uses', href: '/uses/' }];
+---
+<BaseLayout title="Ways to Use Humic & Fulvic Acid | Humusolver"
+  description="Row starter, broadcast, foliar, irrigation, seed treatment, greenhouse, and nitrogen programs. Find rates and tips for every Humusolver application."
+  crumbs={crumbs}>
+  <PageHero eyebrow="Uses" title="One concentrate, many ways to apply it" crumbs={crumbs}
+    lede="Start with your operation, or jump straight to the application method you use." />
+  <section class="section">
+    <div class="wrap">
+      <h2>By operation</h2>
+      <div class="grid grid--2">
+        {audiences.map((u) => (
+          <article class="card card--link">
+            {u.data.image && <div class="card__media"><Image src={u.data.image} alt={u.data.imageAlt ?? ''} widths={[480, 800]} sizes="(min-width: 900px) 50vw, 100vw" /></div>}
+            <h3><a href={`/uses/${u.id}/`}>{u.data.cardTitle}</a></h3>
+            <p>{u.data.summary}</p>
+            <span class="more" aria-hidden="true">Learn more →</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section section--paper">
+    <div class="wrap">
+      <h2>By application method</h2>
+      <div class="grid grid--3">
+        {methods.map((u) => <UseCard href={`/uses/${u.id}/`} title={u.data.cardTitle} summary={u.data.summary} icon={icons[u.id]} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .card--link h3 a { color: inherit; text-decoration: none; }
+  .card--link .more { color: var(--humus); }
+</style>

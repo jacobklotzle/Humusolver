@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Ph from '../../components/Ph.astro';
+import { business } from '../../site.config';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+const crumbs = [{ name: 'Products', href: '/products/' }];
+---
+<BaseLayout
+  title="Humic & Fulvic Acid Products and Prices | Humusolver"
+  description="Compare Humusolver-100 soluble powder and FS Granular. Application rates, package sizes from 2 lb bottles to 2,000 lb bulk bags, and pricing."
+  crumbs={crumbs}
+>
+  <PageHero eyebrow="Products" title="Choose your form" crumbs={crumbs}
+    lede="Both products contain the same humic and fulvic acid concentrate. Choose the powder for anything that goes through water, or the granules to blend with dry fertilizer." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid--2">{products.map((p) => <ProductCard product={p} />)}</div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Side by side</h2>
+      </div>
+      <div class="table-scroll prose" style="max-width:none">
+        <table>
+          <caption class="sr-only">Comparison of Humusolver products</caption>
+          <thead><tr><th scope="col"></th>{products.map((p) => <th scope="col">{p.data.name}</th>)}</tr></thead>
+          <tbody>
+            <tr><th scope="row">Form</th>{products.map((p) => <td>{p.data.form}</td>)}</tr>
+            <tr><th scope="row">Best for</th>{products.map((p) => <td>{p.data.bestFor.join('; ')}</td>)}</tr>
+            <tr><th scope="row">Rates</th>{products.map((p) => <td>{p.data.rates.map((r) => <div><strong>{r.use}:</strong> {r.rate}</div>)}</td>)}</tr>
+            <tr><th scope="row">Sizes & prices</th>{products.map((p) => <td>{p.data.packages.map((pk) => <div>{pk.size}: <Ph text={pk.price} /></div>)}</td>)}</tr>
+            <tr><th scope="row">Organic</th>{products.map((p) => <td>{p.data.omriEligible ? (business.omri.confirmed ? 'OMRI Listed' : <Ph text="[[OWNER CONFIRM: OMRI listing current?]]" />) : <Ph text="[[OWNER CONFIRM: OMRI status]]" />}</td>)}</tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:1.5rem">Prices are per package, before freight. Freight is quoted per order based on your ZIP code, or choose will-call pickup in Monticello, Indiana. <Ph text="[[OWNER CONFIRM: volume or dealer pricing?]]" /></p>
+      <p>Also available: <strong>{business.dealerLines.join(' and ')}</strong> (we're an authorized dealer). Ask with your quote.</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import StudyCard from '../components/StudyCard.astro';
+import Ph from '../components/Ph.astro';
+import { FEATURE_LIVESTOCK_RESEARCH } from '../site.config';
+
+const all = (await getCollection('research')).sort((a, b) => b.data.year - a.data.year);
+const groups = [
+  { id: 'reviews', title: 'Big-picture reviews and meta-analyses', blurb: 'These pool results from many studies. They are the best guide to what to expect on average.', items: all.filter((s) => s.data.category === 'review') },
+  { id: 'crops', title: 'Row crops', blurb: 'Field trials on corn, wheat, and other crops, including USDA-ARS work in Iowa.', items: all.filter((s) => s.data.category === 'crops') },
+  { id: 'soil', title: 'Soil, plus trials that found no effect', blurb: 'What humic substances do (and don\'t do) in soil, including a well-known study that found no benefit.', items: all.filter((s) => s.data.category === 'soil') },
+  { id: 'pasture', title: 'Pasture and forage', blurb: 'Studies on grass and pasture so far show limited or no season-long yield response.', items: all.filter((s) => s.data.category === 'pasture') },
+  ...(FEATURE_LIVESTOCK_RESEARCH
+    ? [{ id: 'livestock', title: 'Livestock (feed-additive research)', blurb: 'Research on humic substances fed to animals. Humusolver is sold as a soil amendment and is not labeled as a feed. These studies are about humic substances in general.', items: all.filter((s) => s.data.category === 'livestock') }]
+    : []),
+].filter((g) => g.items.length);
+const crumbs = [{ name: 'Research', href: '/research/' }];
+---
+<BaseLayout title="Humic Acid Research: What Studies Show | Humusolver"
+  description="Plain-language summaries of peer-reviewed research on humic and fulvic acids in crops, soil, and pasture, including studies that found no effect."
+  crumbs={crumbs}>
+  <PageHero eyebrow="Research" title="What the research actually says" crumbs={crumbs}
+    lede="Plain-language summaries of peer-reviewed studies on humic substances. We include the trials that found no benefit, because you deserve the full picture before you spend money." />
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="grid grid--2 takeaways">
+        <div class="card">
+          <h2 class="h3">The honest takeaways</h2>
+          <ul class="check-list">
+            <li><span>Average effects in pooled studies are <strong>positive but modest</strong>, and they vary a lot by soil, crop, climate, rate, and the source of the humic material.</span></li>
+            <li><span>In USDA-ARS corn trials in Iowa, yield gains were <strong>1–4%</strong> in replicated strips, and larger on droughty, eroded ground in a dry year.</span></li>
+            <li><span>Several well-run studies found <strong>no benefit</strong>, especially for vegetables at typical rates and for season-long pasture yield.</span></li>
+            <li><span><strong>More isn't always better.</strong> Several studies found the response depends on rate.</span></li>
+          </ul>
+        </div>
+        <div class="card note--info" style="border:0">
+          <h2 class="h3">How to read these</h2>
+          <p>Every study below tested <strong>humic substances in general</strong>, often from leonardite, peat, or compost. None tested Humusolver specifically. Results from one product or field don't guarantee results on yours.</p>
+          <p>The best test is your own ground: apply Humusolver to most of a field, leave untreated check strips, and compare yields at harvest.</p>
+          <p><Ph text="[[OWNER CONFIRM: any Humusolver-specific trial data or on-farm results to add]]" /></p>
+        </div>
+      </div>
+      <nav aria-label="Research sections" class="jump">
+        <span>Jump to:</span>
+        {groups.map((g) => <a href={`#${g.id}`}>{g.title.split(',')[0]}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  {groups.map((g, i) => (
+    <section class:list={['section', 'section--tight', { 'section--paper': i % 2 === 0 }]} id={g.id} aria-labelledby={`${g.id}-h`}>
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id={`${g.id}-h`}>{g.title}</h2>
+          <p class="lede">{g.blurb}</p>
+        </div>
+        <div class="grid grid--2">{g.items.map((s) => <StudyCard study={s} />)}</div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section section--tight">
+    <div class="wrap prose">
+      <p class="note"><strong>About these summaries:</strong> Each summary is based on the published abstract or full text, linked in the title. Numbers are as reported by the authors. These summaries are not a claim that Humusolver will produce the same results. Last reviewed October 2026.</p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .h3 { font-size: var(--step-1); }
+  .jump { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 2rem; font-weight: 600; }
+  .jump span { color: var(--muted); }
+</style>

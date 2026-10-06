@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+import { business } from '../site.config';
+interface Props { operation?: string; product?: string; heading?: string; }
+const { operation, product, heading = 'Get a quote' } = Astro.props;
+const params = new URLSearchParams();
+if (operation) params.set('operation', operation);
+if (product) params.set('product', product);
+const href = `/quote/${params.size ? `?${params}` : ''}`;
+---
+<div class="card quote-aside">
+  <h2 class="quote-aside__h">{heading}</h2>
+  <p>Tell us your acres and product. We'll call back with pricing and freight.</p>
+  <a class="btn btn--gold" href={href}>Request a Quote <Icon name="arrow" /></a>
+  <p class="quote-aside__or">or call <a href={business.phoneHref}>{business.phone}</a></p>
+</div>
+<style>
+  .quote-aside { background: var(--humus); color: #fff; border: 0; }
+  .quote-aside__h { font-size: var(--step-1); color: #fff; }
+  .quote-aside p { color: #e9e2d4; }
+  .quote-aside .btn { width: 100%; }
+  .quote-aside__or { margin: 0.9rem 0 0; text-align: center; }
+  .quote-aside a:not(.btn) { color: var(--gold-200); font-weight: 700; }
+</style>

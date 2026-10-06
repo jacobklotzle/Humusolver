@@ -1,0 +1,66 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import QuoteAside from '../../components/QuoteAside.astro';
+import StudyCard from '../../components/StudyCard.astro';
+import { FEATURE_LIVESTOCK_RESEARCH } from '../../site.config';
+
+export async function getStaticPaths() {
+  const uses = await getCollection('uses');
+  return uses.map((u) => ({ params: { slug: u.id }, props: { use: u } }));
+}
+interface Props { use: CollectionEntry<'uses'>; }
+const { use } = Astro.props;
+const d = use.data;
+const { Content } = await render(use);
+const crumbs = [{ name: 'Uses', href: '/uses/' }, { name: d.cardTitle, href: `/uses/${use.id}/` }];
+const products = (await getCollection('products')).filter((p) => d.products.includes(p.id));
+const studies = (await getCollection('research'))
+  .filter((s) => s.data.tags.some((t) => d.researchTags.includes(t)))
+  .filter((s) => FEATURE_LIVESTOCK_RESEARCH || s.data.category !== 'livestock')
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 4);
+const others = (await getCollection('uses')).filter((u) => u.id !== use.id && u.data.kind === d.kind).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title={d.title} description={d.description} crumbs={crumbs} cta={{ operation: d.operation }}>
+  <PageHero eyebrow={d.kind === 'audience' ? 'Who it\'s for' : 'Application method'} title={d.h1} lede={d.lede} image={d.image} imageAlt={d.imageAlt} crumbs={crumbs} />
+  <section class="section">
+    <div class="wrap content-grid">
+      <article class="prose">
+        <Content />
+        {products.length > 0 && (<>
+          <h2>Products for this use</h2>
+          <ul>{products.map((p) => <li><a href={`/products/${p.id}/`}>{p.data.name}</a>: {p.data.tagline.toLowerCase()}</li>)}</ul>
+        </>)}
+      </article>
+      <aside class="content-aside stack">
+        <QuoteAside operation={d.operation} />
+        {others.length > 0 && (
+          <nav class="card" aria-label="Related uses">
+            <h2 style="font-size:1.05rem">{d.kind === 'audience' ? 'Other operations' : 'Other application methods'}</h2>
+            <ul class="related">{others.map((u) => <li><a href={`/uses/${u.id}/`}>{u.data.cardTitle}</a></li>)}</ul>
+          </nav>
+        )}
+      </aside>
+    </div>
+  </section>
+  {studies.length > 0 && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Published research</p>
+          <h2>What studies on humic substances found</h2>
+          <p class="lede">These studies tested humic substances in general, not Humusolver specifically. Results vary, and we include the null results too.</p>
+        </div>
+        <div class="grid grid--2">{studies.map((s) => <StudyCard study={s} />)}</div>
+        <p style="margin-top:1.5rem"><a href="/research/">All research summaries →</a></p>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+<style>
+  .content-grid { display: grid; gap: 3rem; }
+  @media (min-width: 1000px) { .content-grid { grid-template-columns: minmax(0, 1fr) 20rem; } .content-aside { position: sticky; top: 6rem; align-self: start; } }
+  .related { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+</style>

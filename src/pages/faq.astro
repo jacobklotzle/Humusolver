@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import { faqSchema } from '../lib/schema';
+
+const faqs = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order).map((f) => f.data);
+const topics = [
+  { id: 'product', title: 'The product' },
+  { id: 'application', title: 'Applying it' },
+  { id: 'science', title: 'Science and results' },
+  { id: 'organic', title: 'Organic production' },
+  { id: 'ordering', title: 'Ordering and shipping' },
+] as const;
+const crumbs = [{ name: 'FAQ', href: '/faq/' }];
+---
+<BaseLayout title="Humic Acid FAQ: Rates, Mixing, Organic & Shipping | Humusolver"
+  description="Answers about Humusolver humic and fulvic acid: which product to use, rates per acre, tank mixing, organic use, storage, ordering, and shipping."
+  crumbs={crumbs} schema={[faqSchema(faqs)]}>
+  <PageHero eyebrow="FAQ" title="Frequently asked questions" crumbs={crumbs}
+    lede="Can't find your answer? Call us. You'll talk to the family that runs the business." />
+  <section class="section">
+    <div class="wrap stack">
+      {topics.map((t) => {
+        const items = faqs.filter((f) => f.topic === t.id);
+        return items.length ? (<section aria-labelledby={`faq-${t.id}`} class="faq-group"><h2 id={`faq-${t.id}`}>{t.title}</h2><FaqList items={items} /></section>) : null;
+      })}
+    </div>
+  </section>
+</BaseLayout>
+<style>.faq-group + .faq-group { margin-top: 3rem; } .faq-group h2 { font-size: var(--step-2); }</style>

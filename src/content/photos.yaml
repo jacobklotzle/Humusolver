@@ -1,150 +1,180 @@
 # Photo gallery. Captions describe what's visible; add the farm, county, or year where known.
 - id: planter-spring-field
+  order: 1
   src: ../assets/photos/planter-spring-field.jpg
   group: Row crops
   alt: "Red tractor pulling a 12-row planter across a worked field in spring"
   caption: "Spring planting"
 - id: planter-field-edge
+  order: 2
   src: ../assets/photos/planter-field-edge.jpg
   group: Row crops
   alt: "Tractor and planter working a field next to a gravel lane under a cloudy sky"
   caption: "Planting along the field edge"
 - id: corn-early-rows
+  order: 3
   src: ../assets/photos/corn-early-rows.jpg
   group: Row crops
   alt: "Young corn in evenly spaced rows on dark soil"
   caption: "Early-season corn"
 - id: corn-rows-summer
+  order: 4
   src: ../assets/photos/corn-rows-summer.jpg
   group: Row crops
   alt: "Knee-high corn rows stretching to a tree line"
   caption: "Corn rows in early summer"
 - id: corn-canopy
+  order: 5
   src: ../assets/photos/corn-canopy.jpg
   group: Row crops
   alt: "Dense corn canopy under a clear blue sky"
   caption: "Corn at canopy"
 - id: corn-midseason
+  order: 6
   src: ../assets/photos/corn-midseason.jpg
   group: Row crops
   alt: "Mid-season corn with broad green leaves"
   caption: "Mid-season corn"
 - id: soybean-field-plot-sign
+  order: 7
   src: ../assets/photos/soybean-field-plot-sign.jpg
   group: Row crops
   alt: "Soybean field with a small plot sign in the foreground"
   caption: "Soybean field with plot marker"
 - id: combine-harvest
+  order: 8
   src: ../assets/photos/combine-harvest.jpg
   group: Row crops
   alt: "Red combine harvesting with dust trailing behind"
   caption: "Harvest"
 - id: corn-roots-in-hand
+  order: 9
   src: ../assets/photos/corn-roots-in-hand.jpg
   group: Roots
   alt: "A hand holding a young corn plant with its full root system"
   caption: "Young corn roots"
 - id: root-mass-held
+  order: 10
   src: ../assets/photos/root-mass-held.jpg
   group: Roots
   alt: "A plant held up to show a large, dense root mass"
   caption: "Root mass dug from the field"
 - id: root-mass-greenhouse
+  order: 11
   src: ../assets/photos/root-mass-greenhouse.jpg
   group: Roots
   alt: "A thick root ball pulled from a container in a greenhouse"
   caption: "Container root ball"
 - id: dug-roots-tailgate
+  order: 12
   src: ../assets/photos/dug-roots-tailgate.jpg
   group: Roots
   alt: "Dug plants laid on a wooden tailgate showing their root systems"
   caption: "Comparing dug roots"
 - id: forage-stand-check
+  order: 13
   src: ../assets/photos/forage-stand-check.jpg
   group: Pasture & forage
   alt: "A grower standing knee-deep in a thick green forage stand"
   caption: "Checking a forage stand"
 - id: forage-stand-walk
+  order: 14
   src: ../assets/photos/forage-stand-walk.jpg
   group: Pasture & forage
   alt: "A man walking through tall forage on a cloudy day"
   caption: "Walking a hay field"
 - id: forage-clover-stand
+  order: 15
   src: ../assets/photos/forage-clover-stand.jpg
   group: Pasture & forage
   alt: "Dense, low green forage stand with a tree line behind"
   caption: "Forage regrowth"
 - id: forage-field
+  order: 16
   src: ../assets/photos/forage-field.jpg
   group: Pasture & forage
   alt: "Wide green forage field under an overcast sky"
   caption: "Forage field"
 - id: hay-windrows
+  order: 17
   src: ../assets/photos/hay-windrows.jpg
   group: Pasture & forage
   alt: "Freshly cut hay lying in windrows across a field"
   caption: "Hay down in windrows"
 - id: small-grain-field
+  order: 18
   src: ../assets/photos/small-grain-field.jpg
   group: Pasture & forage
   alt: "A broad field of green small grain under a blue sky"
   caption: "Small grain stand"
 - id: small-grain-stand
+  order: 19
   src: ../assets/photos/small-grain-stand.jpg
   group: Pasture & forage
   alt: "Tall green grain stand with trees on the horizon"
   caption: "Small grain heading toward harvest"
 - id: greenhouse-bedding-plants
+  order: 20
   src: ../assets/photos/greenhouse-bedding-plants.jpg
   group: Greenhouse
   alt: "Long greenhouse with benches of red and pink bedding plants"
   caption: "Greenhouse bedding plants"
 - id: greenhouse-flats-color
+  order: 21
   src: ../assets/photos/greenhouse-flats-color.jpg
   group: Greenhouse
   alt: "Benches of colorful flowering flats inside a hoop house"
   caption: "Flats ready for sale"
 - id: greenhouse-transplants
+  order: 22
   src: ../assets/photos/greenhouse-transplants.jpg
   group: Greenhouse
   alt: "Green transplants on pallet benches in a hoop house"
   caption: "Transplants on the bench"
 - id: greenhouse-vegetable-starts
+  order: 23
   src: ../assets/photos/greenhouse-vegetable-starts.jpg
   group: Greenhouse
   alt: "Vegetable starts filling benches in a hoop house"
   caption: "Vegetable starts"
 - id: greenhouse-begonias
+  order: 24
   src: ../assets/photos/greenhouse-begonias.jpg
   group: Greenhouse
   alt: "Trays of red begonias on greenhouse benches"
   caption: "Begonias"
 - id: petunia-basket
+  order: 25
   src: ../assets/photos/petunia-basket.jpg
   group: Greenhouse
   alt: "Hanging basket overflowing with purple and white petunias"
   caption: "Hanging basket"
 - id: bell-peppers
+  order: 26
   src: ../assets/photos/bell-peppers.jpg
   group: Fruit & vegetables
   alt: "Green bell peppers hanging on a leafy plant"
   caption: "Bell peppers"
 - id: cucumber-vines
+  order: 27
   src: ../assets/photos/cucumber-vines.jpg
   group: Fruit & vegetables
   alt: "Cucumber vines with fresh-picked cucumbers"
   caption: "Cucumbers"
 - id: vegetable-rows
+  order: 28
   src: ../assets/photos/vegetable-rows.jpg
   group: Fruit & vegetables
   alt: "Long rows of vegetable plants in a field"
   caption: "Vegetable rows"
 - id: blueberry-bloom
+  order: 29
   src: ../assets/photos/blueberry-bloom.jpg
   group: Fruit & vegetables
   alt: "White flower clusters on a blueberry bush"
   caption: "Blueberries in bloom"
 - id: blueberry-row
+  order: 30
   src: ../assets/photos/blueberry-row.jpg
   group: Fruit & vegetables
   alt: "A grassy lane between rows of tall green bushes"

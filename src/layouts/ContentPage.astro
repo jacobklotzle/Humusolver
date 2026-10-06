@@ -1,0 +1,28 @@
+---
+// Renders a Markdown page from src/content/pages/<id>.md
+import { getEntry, render } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+interface Props { id: string; crumbName?: string; cta?: false | { heading?: string; text?: string; operation?: string }; }
+const { id, crumbName, cta } = Astro.props;
+const entry = await getEntry('pages', id);
+if (!entry) throw new Error(`Missing content page: ${id}`);
+const { Content } = await render(entry);
+const d = entry.data;
+const crumbs = [{ name: crumbName ?? d.h1, href: Astro.url.pathname }];
+---
+<BaseLayout title={d.title} description={d.description} crumbs={crumbs} cta={cta}>
+  <PageHero eyebrow={d.eyebrow} title={d.h1} lede={d.lede} image={d.image} imageAlt={d.imageAlt} crumbs={crumbs} />
+  <section class="section">
+    <div class="wrap content-grid">
+      <article class="prose"><Content /></article>
+      <aside class="content-aside"><slot name="aside" /></aside>
+    </div>
+  </section>
+  <slot />
+</BaseLayout>
+<style>
+  .content-grid { display: grid; gap: 3rem; }
+  @media (min-width: 1000px) { .content-grid { grid-template-columns: minmax(0, 1fr) 20rem; } .content-aside { position: sticky; top: 6rem; align-self: start; } }
+  .content-aside:empty { display: none; }
+</style>

@@ -68,7 +68,7 @@ const research = defineCollection({
     authors: z.string(),
     year: z.number(),
     journal: z.string(),
-    url: z.string().url(),
+    url: z.url(),
     doi: z.string().optional(),
     openAccess: z.boolean(),
     studyType: z.string(),
@@ -82,6 +82,7 @@ const research = defineCollection({
 const faq = defineCollection({
   loader: file('./src/content/faq.yaml'),
   schema: z.object({
+    order: z.number().default(0),
     q: z.string(),
     a: z.string(),
     topic: z.enum(['product', 'application', 'ordering', 'science', 'organic']),
@@ -93,6 +94,7 @@ const photos = defineCollection({
   loader: file('./src/content/photos.yaml'),
   schema: ({ image }) =>
     z.object({
+      order: z.number().default(0),
       src: image(),
       alt: z.string(),
       caption: z.string(),

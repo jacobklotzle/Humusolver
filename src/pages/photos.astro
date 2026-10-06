@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Ph from '../components/Ph.astro';
+
+const photos = (await getCollection('photos')).sort((a, b) => a.data.order - b.data.order);
+const groups = ['Row crops', 'Roots', 'Pasture & forage', 'Greenhouse', 'Fruit & vegetables'] as const;
+const crumbs = [{ name: 'Photos', href: '/photos/' }];
+---
+<BaseLayout title="Photos: Crops, Roots & Pasture | Humusolver"
+  description="Photos from the field: corn, soybeans, roots, pasture and hay ground, greenhouses, and vegetables grown by Humusolver customers."
+  crumbs={crumbs}>
+  <PageHero eyebrow="Photos" title="From the field" crumbs={crumbs}
+    lede="Crops, roots, pasture, and greenhouses from the people who use Humusolver." >
+    <p style="margin-top:1rem"><Ph text="[[OWNER CONFIRM: add farm, county, and year to captions where known; confirm photo permissions]]" /></p>
+  </PageHero>
+  {groups.map((g) => {
+    const items = photos.filter((p) => p.data.group === g);
+    return (
+      <section class="section section--tight" aria-labelledby={`g-${g}`}>
+        <div class="wrap">
+          <h2 id={`g-${g}`}>{g}</h2>
+          <ul class="gallery">
+            {items.map((p) => (
+              <li>
+                <figure class="figure">
+                  <a href={p.data.src.src} aria-label={`${p.data.caption}: open full size`}>
+                    <Image src={p.data.src} alt={p.data.alt} widths={[360, 600]} sizes="(min-width: 1000px) 25vw, (min-width: 600px) 33vw, 50vw" />
+                  </a>
+                  <figcaption>{p.data.caption}</figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  })}
+</BaseLayout>
+<style>
+  .gallery { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(46%, 15rem), 1fr)); }
+  .gallery img { aspect-ratio: 4 / 3; object-fit: cover; transition: transform 0.25s; }
+  .gallery a { display: block; overflow: hidden; border-radius: var(--radius-lg); }
+  .gallery a:hover img { transform: scale(1.03); }
+</style>
