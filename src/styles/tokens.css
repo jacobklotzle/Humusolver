@@ -1,0 +1,47 @@
+/* Design tokens. Colors chosen for WCAG AA; see scripts/contrast.mjs. */
+:root {
+  /* palette */
+  --topsoil: #231b14;
+  --topsoil-2: #3a2e23;
+  --humus: #2f4a2c;
+  --humus-600: #263d24;
+  --humus-100: #e3ebdc;
+  --gold: #c8962e;
+  --gold-200: #f1dfb4;
+  --clay: #9a5b34;
+  --cream: #f6f1e7;
+  --paper: #fffdf8;
+  --stone: #5f564c;
+  --line: #ddd3c2;
+  --danger: #a12a1c;
+
+  /* roles */
+  --bg: var(--cream);
+  --surface: var(--paper);
+  --text: var(--topsoil);
+  --muted: var(--stone);
+  --brand: var(--humus);
+  --brand-hover: var(--humus-600);
+  --on-brand: #ffffff;
+  --accent: var(--gold);
+  --focus: #1f6fd1;
+
+  /* type */
+  --font-head: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --font-body: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, sans-serif;
+  --step--1: clamp(0.875rem, 0.85rem + 0.1vw, 0.94rem);
+  --step-0: clamp(1.0625rem, 1.03rem + 0.15vw, 1.15rem);
+  --step-1: clamp(1.25rem, 1.18rem + 0.35vw, 1.45rem);
+  --step-2: clamp(1.5rem, 1.35rem + 0.75vw, 1.95rem);
+  --step-3: clamp(1.85rem, 1.55rem + 1.5vw, 2.7rem);
+  --step-4: clamp(2.25rem, 1.75rem + 2.6vw, 3.75rem);
+
+  /* space & shape */
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2rem);
+  --section: clamp(3rem, 2rem + 5vw, 6rem);
+  --radius: 10px;
+  --radius-lg: 18px;
+  --shadow: 0 1px 2px rgb(35 27 20 / 0.06), 0 8px 24px rgb(35 27 20 / 0.08);
+  --max: 1180px;
+  --measure: 68ch;
+}
