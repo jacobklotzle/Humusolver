@@ -1,0 +1,275 @@
+---
+// Quote request / question form. Works without JavaScript (posts to /api/quote and
+// redirects); with JavaScript it submits in place and shows field-level errors.
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+import { OPERATIONS, PRODUCTS, DELIVERY, CONTACT_PREF, US_STATES } from '../lib/leads';
+import { business } from '../site.config';
+
+interface Props { type?: 'quote' | 'question'; }
+const { type = 'quote' } = Astro.props;
+const isQuote = type === 'quote';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+const packageOptions = products.flatMap((p) => p.data.packages.map((pk) => ({ product: p.id, label: `${p.data.name}: ${pk.size}` })));
+const id = (n: string) => `${type}-${n}`;
+---
+<form class="lead-form" method="post" action="/api/quote/" novalidate data-type={type}>
+  <input type="hidden" name="type" value={type} />
+  <input type="hidden" name="t" value="" />
+  <input type="hidden" name="sourcePage" value="" />
+  <input type="hidden" name="estimate" value="" />
+  <div class="hp" aria-hidden="true">
+    <label for={id('website')}>Leave this field empty</label>
+    <input id={id('website')} type="text" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="lead-form__status" role="alert" aria-live="assertive" tabindex="-1"></div>
+
+  {isQuote && (
+    <fieldset class="lead-form__section">
+      <legend class="lead-form__legend"><span>1</span> Your operation</legend>
+      <div class="lead-form__grid">
+        <div class="field field--wide">
+          <label for={id('operation')}>Type of operation <span class="req" aria-hidden="true">*</span></label>
+          <select id={id('operation')} name="operation" required aria-describedby={id('operation-err')}>
+            <option value="">Choose one…</option>
+            {OPERATIONS.map((o) => <option value={o.value}>{o.label}</option>)}
+          </select>
+          <p class="field__error" id={id('operation-err')}></p>
+        </div>
+        <div class="field">
+          <label for={id('acres')}>Acres to treat</label>
+          <input id={id('acres')} name="acres" type="number" inputmode="decimal" min="0" step="any" aria-describedby={id('acres-err')} />
+          <p class="field__error" id={id('acres-err')}></p>
+        </div>
+        <div class="field">
+          <label for={id('farm')}>Farm or business name</label>
+          <input id={id('farm')} name="farm" type="text" autocomplete="organization" />
+        </div>
+      </div>
+    </fieldset>
+  )}
+
+  {isQuote && (
+    <fieldset class="lead-form__section">
+      <legend class="lead-form__legend"><span>2</span> What you need</legend>
+      <div class="lead-form__grid">
+        <div class="field field--wide">
+          <label for={id('product')}>Product <span class="req" aria-hidden="true">*</span></label>
+          <select id={id('product')} name="product" required aria-describedby={id('product-err')}>
+            <option value="">Choose one…</option>
+            {PRODUCTS.map((o) => <option value={o.value}>{o.label}</option>)}
+          </select>
+          <p class="field__error" id={id('product-err')}></p>
+        </div>
+        <div class="field">
+          <label for={id('packageSize')}>Package size</label>
+          <select id={id('packageSize')} name="packageSize">
+            <option value="">Not sure yet</option>
+            {packageOptions.map((o) => <option value={o.label} data-product={o.product}>{o.label}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for={id('quantity')}>How many packages?</label>
+          <input id={id('quantity')} name="quantity" type="number" inputmode="numeric" min="0" step="1" aria-describedby={id('quantity-err')} />
+          <p class="field__error" id={id('quantity-err')}></p>
+        </div>
+        <div class="field field--wide estimate-note" hidden>
+          <p class="note note--info" style="margin:0"><strong>Your estimate:</strong> <span class="estimate-text"></span></p>
+        </div>
+      </div>
+    </fieldset>
+  )}
+
+  {isQuote && (
+    <fieldset class="lead-form__section">
+      <legend class="lead-form__legend"><span>3</span> Delivery</legend>
+      <div class="field">
+        <fieldset aria-describedby={id('delivery-err')}>
+          <legend class="sr-only">How do you want to get it? (required)</legend>
+          <div class="choice-group">
+            {DELIVERY.map((o, i) => (
+              <label class="choice"><input type="radio" name="delivery" value={o.value} required={i === 0} /> {o.label}</label>
+            ))}
+          </div>
+        </fieldset>
+        <p class="field__error" id={id('delivery-err')}></p>
+      </div>
+      <div class="lead-form__grid" style="margin-top:1rem">
+        <div class="field">
+          <label for={id('zip')}>ZIP code <span class="zip-req req" aria-hidden="true" hidden>*</span></label>
+          <input id={id('zip')} name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" aria-describedby={id('zip-hint') + ' ' + id('zip-err')} />
+          <p class="hint" id={id('zip-hint')}>Needed to quote freight.</p>
+          <p class="field__error" id={id('zip-err')}></p>
+        </div>
+        <div class="field">
+          <label for={id('state')}>State</label>
+          <select id={id('state')} name="state" autocomplete="address-level1">
+            <option value="">—</option>
+            {US_STATES.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for={id('neededBy')}>Needed by</label>
+          <input id={id('neededBy')} name="neededBy" type="date" />
+        </div>
+      </div>
+    </fieldset>
+  )}
+
+  <fieldset class="lead-form__section">
+    {isQuote && <legend class="lead-form__legend"><span>4</span> How to reach you</legend>}
+    <div class="lead-form__grid">
+      <div class="field field--wide">
+        <label for={id('name')}>Your name <span class="req" aria-hidden="true">*</span></label>
+        <input id={id('name')} name="name" type="text" autocomplete="name" required aria-describedby={id('name-err')} />
+        <p class="field__error" id={id('name-err')}></p>
+      </div>
+      <div class="field">
+        <label for={id('phone')}>Phone</label>
+        <input id={id('phone')} name="phone" type="tel" autocomplete="tel" aria-describedby={id('contact-hint') + ' ' + id('phone-err')} />
+        <p class="field__error" id={id('phone-err')}></p>
+      </div>
+      <div class="field">
+        <label for={id('email')}>Email</label>
+        <input id={id('email')} name="email" type="email" autocomplete="email" aria-describedby={id('contact-hint') + ' ' + id('email-err')} />
+        <p class="field__error" id={id('email-err')}></p>
+      </div>
+      <p class="hint field--wide" id={id('contact-hint')}>Phone or email is required. We only use it to answer your request.</p>
+      {isQuote && (
+        <div class="field field--wide">
+          <fieldset>
+            <legend>Best way to reach you</legend>
+            <div class="choice-group">
+              {CONTACT_PREF.map((o, i) => <label class="choice"><input type="radio" name="contactPref" value={o.value} checked={i === 0} /> {o.label}</label>)}
+            </div>
+          </fieldset>
+        </div>
+      )}
+      <div class="field field--wide">
+        <label for={id('message')}>{isQuote ? 'Anything else we should know?' : 'Your question'} {!isQuote && <span class="req" aria-hidden="true">*</span>}</label>
+        <textarea id={id('message')} name="message" rows="4" required={!isQuote} aria-describedby={id('message-err')}
+          placeholder={isQuote ? 'Crop, soil, current fertilizer program, timing…' : ''}></textarea>
+        <p class="field__error" id={id('message-err')}></p>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="lead-form__submit">
+    <button type="submit" class="btn btn--gold">
+      <span class="lead-form__label">{isQuote ? 'Send my quote request' : 'Send my question'}</span>
+      <Icon name="arrow" />
+    </button>
+    <p class="hint">Prefer to talk? Call <a href={business.phoneHref}>{business.phone}</a>.</p>
+  </div>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.lead-form').forEach((form) => {
+    const set = (name: string, v: string) => {
+      const el = form.elements.namedItem(name) as HTMLInputElement | null;
+      if (el) el.value = v;
+    };
+    set('t', String(Date.now()));
+    set('sourcePage', location.pathname + location.search);
+
+    const status = form.querySelector<HTMLElement>('.lead-form__status')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const label = form.querySelector<HTMLElement>('.lead-form__label')!;
+    const prefix = form.dataset.type;
+
+    // Prefill from links like /quote/?operation=row-crop&product=fs-granular
+    const params = new URLSearchParams(location.search);
+    for (const key of ['operation', 'product']) {
+      const v = params.get(key);
+      const el = form.elements.namedItem(key) as HTMLSelectElement | null;
+      if (v && el && [...el.options].some((o) => o.value === v)) el.value = v;
+    }
+
+    // Filter package sizes by product
+    const productSel = form.elements.namedItem('product') as HTMLSelectElement | null;
+    const pkgSel = form.elements.namedItem('packageSize') as HTMLSelectElement | null;
+    const filterPackages = () => {
+      if (!productSel || !pkgSel) return;
+      [...pkgSel.options].forEach((o) => {
+        const p = o.dataset.product;
+        o.hidden = !!p && !!productSel.value && productSel.value !== p && !['not-sure', 'dealer-lines'].includes(productSel.value);
+      });
+      if (pkgSel.selectedOptions[0]?.hidden) pkgSel.value = '';
+    };
+    productSel?.addEventListener('change', filterPackages);
+    filterPackages();
+
+    // ZIP becomes required when shipping
+    const zipReq = form.querySelector<HTMLElement>('.zip-req');
+    form.querySelectorAll<HTMLInputElement>('input[name=delivery]').forEach((r) =>
+      r.addEventListener('change', () => { if (zipReq) zipReq.hidden = r.value !== 'ship'; }),
+    );
+
+    // Receive estimates from the calculator
+    document.addEventListener('estimate', (e) => {
+      const { summary, product, acres } = (e as CustomEvent).detail;
+      set('estimate', summary);
+      if (productSel) { productSel.value = product; filterPackages(); }
+      const acresEl = form.elements.namedItem('acres') as HTMLInputElement | null;
+      if (acresEl && !acresEl.value) acresEl.value = acres;
+      const note = form.querySelector<HTMLElement>('.estimate-note');
+      if (note) { note.hidden = false; note.querySelector('.estimate-text')!.textContent = summary; }
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      (form.querySelector('select, input:not([type=hidden])') as HTMLElement | null)?.focus({ preventScroll: true });
+    });
+
+    const clearErrors = () => {
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      form.querySelectorAll('.field__error').forEach((el) => (el.textContent = ''));
+      status.textContent = '';
+      status.className = 'lead-form__status';
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearErrors();
+      btn.disabled = true;
+      label.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({ ok: false, message: 'Something went wrong.' }));
+        if (data.ok) {
+          location.href = '/thank-you/' + (prefix === 'question' ? '?type=question' : '');
+          return;
+        }
+        for (const [name, msg] of Object.entries<string>(data.errors ?? {})) {
+          const err = document.getElementById(`${prefix}-${name}-err`);
+          if (err) err.textContent = msg;
+          form.querySelectorAll<HTMLElement>(`[name="${name}"]`).forEach((f) => f.setAttribute('aria-invalid', 'true'));
+        }
+        status.className = 'lead-form__status is-error';
+        status.textContent = data.message ?? 'Please check the form.';
+        // Focus the first invalid field in page order
+        (form.querySelector<HTMLElement>('[aria-invalid="true"]') ?? status).focus();
+      } catch {
+        status.className = 'lead-form__status is-error';
+        status.textContent = 'We couldn\'t reach the server. Please call 574-581-1989.';
+        status.focus();
+      } finally {
+        btn.disabled = false;
+        label.textContent = prefix === 'question' ? 'Send my question' : 'Send my quote request';
+      }
+    });
+  });
+</script>
+
+<style>
+  .lead-form { display: grid; gap: 1.75rem; }
+  .lead-form__section { display: grid; gap: 1rem; }
+  .lead-form__legend { display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-head); font-weight: 800; font-size: var(--step-1); margin-bottom: 0.75rem; }
+  .lead-form__legend span { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--humus); color: #fff; font-size: 1rem; }
+  .lead-form__grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+  .field--wide { grid-column: 1 / -1; }
+  .lead-form__status:empty { display: none; }
+  .lead-form__status.is-error { padding: 0.9rem 1.1rem; border-radius: var(--radius); background: #fbe9e6; color: var(--danger); font-weight: 700; border-left: 4px solid var(--danger); }
+  .lead-form__submit { display: grid; gap: 0.75rem; justify-items: start; }
+  .lead-form__submit .btn { min-width: 16rem; }
+  .lead-form__submit .btn[disabled] { opacity: 0.7; cursor: progress; }
+</style>

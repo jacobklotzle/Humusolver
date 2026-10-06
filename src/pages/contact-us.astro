@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Icon from '../components/Icon.astro';
+import Ph from '../components/Ph.astro';
+import { business } from '../site.config';
+const crumbs = [{ name: 'Contact', href: '/contact-us/' }];
+const a = business.address;
+---
+<BaseLayout title="Contact Humusolver | Monticello, Indiana | 574-581-1989"
+  description="Call 574-581-1989 or send a question. Humusolver is a family humate business in Monticello, Indiana, shipping humic and fulvic acid nationwide."
+  crumbs={crumbs} cta={{ heading: 'Ready for pricing?', text: 'Use the quote form to tell us your acres, product, and delivery. It gets you an accurate price fastest.' }}>
+  <PageHero eyebrow="Contact" title="Talk to the family behind Humusolver" crumbs={crumbs}
+    lede="Questions about rates, mixing, or which product fits? Call us. You'll get a real person who knows soil." />
+  <section class="section section--tight">
+    <div class="wrap contact-grid">
+      <div class="stack">
+        {business.people.map((p) => (
+          <div class="card person">
+            <p class="eyebrow">{p.role}</p>
+            <h2>{p.name}</h2>
+            <a class="btn" href={p.phoneHref}><Icon name="phone" /> {p.phone}</a>
+          </div>
+        ))}
+        <div class="card">
+          <h2 class="h3">Email</h2>
+          <p><a href={`mailto:${business.email}`}>{business.email}</a></p>
+          <h2 class="h3">Location</h2>
+          <address>{business.name}<br />{a.street}<br />{a.city}, {a.region} {a.postalCode}</address>
+          <p><Ph text={a.note} /></p>
+          <h2 class="h3">Hours</h2>
+          <p><Ph text={business.hours} /></p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Send a question</h2>
+        <p class="hint" style="margin-bottom:1.5rem">Looking for pricing? The <a href="/quote/">quote form</a> is faster.</p>
+        <LeadForm type="question" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .contact-grid { display: grid; gap: 2rem; }
+  @media (min-width: 900px) { .contact-grid { grid-template-columns: 22rem minmax(0, 1fr); align-items: start; } }
+  .person h2 { font-size: var(--step-2); }
+  .person .eyebrow { margin-bottom: 0.25rem; }
+  .h3 { font-size: 1.05rem; margin-top: 1rem; }
+  .h3:first-child { margin-top: 0; }
+  address { font-style: normal; margin-bottom: 0.5rem; }
+</style>

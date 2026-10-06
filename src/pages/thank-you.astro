@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { business } from '../site.config';
+---
+<BaseLayout title="Thank You | Humusolver" description="Your request has been sent to Humusolver." noindex cta={false}>
+  <section class="section">
+    <div class="wrap thanks">
+      <span class="thanks__icon"><Icon name="check" /></span>
+      <h1>Thanks, we've got it.</h1>
+      <p class="lede">Your request went straight to the Humusolver team. We'll reach out using the contact details you gave us.</p>
+      <p>Need it sooner? Call <a href={business.phoneHref}>{business.phone}</a>.</p>
+      <div class="btn-row" style="justify-content:center;margin-top:2rem">
+        <a class="btn" href="/research/">Read the research</a>
+        <a class="btn btn--ghost" href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .thanks { text-align: center; max-width: 40rem; }
+  .thanks .lede { margin-inline: auto; }
+  .thanks__icon { display: inline-grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--humus); color: #fff; margin-bottom: 1.5rem; }
+  .thanks__icon :global(svg) { width: 2.25rem; height: 2.25rem; }
+</style>
