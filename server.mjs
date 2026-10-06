@@ -1,12 +1,15 @@
 // Production entry point for Railway.
 // Wraps Astro's standalone Node handler to add: 301 redirects, canonical host,
-// security headers, and (in preview mode) noindex + optional basic auth.
+// compression, security headers, and (in preview mode) noindex + optional basic auth.
 import http from 'node:http';
 import { timingSafeEqual } from 'node:crypto';
+import compression from 'compression';
 import { redirects } from './src/lib/redirects.mjs';
 
 process.env.ASTRO_NODE_AUTOSTART = 'disabled';
 const { handler } = await import('./dist/server/entry.mjs');
+
+const compress = compression(); // gzip/brotli for HTML, CSS, JS, JSON, SVG
 
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '0.0.0.0';
@@ -63,7 +66,7 @@ const server = http.createServer((req, res) => {
     return res.end('ok');
   }
 
-  handler(req, res);
+  compress(req, res, () => handler(req, res));
 });
 
 server.listen(PORT, HOST, () => {

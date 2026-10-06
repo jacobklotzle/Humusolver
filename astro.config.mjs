@@ -23,6 +23,11 @@ export default defineConfig({
   image: {
     responsiveStyles: true,
   },
+  security: {
+    // Astro's built-in check compares against the internal request URL, which doesn't match
+    // behind Railway's proxy. /api/quote does its own Origin vs Host check instead.
+    checkOrigin: false,
+  },
   build: {
     inlineStylesheets: 'auto',
   },

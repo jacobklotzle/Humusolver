@@ -3,9 +3,10 @@
 // SITE_MODE=production and any placeholder remains, so an unfinished site can't ship.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { PLACEHOLDER_RE } from '../src/lib/placeholders.mjs';
 
-const ROOT = new URL('..', import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SKIP = new Set(['placeholders.mjs', 'remark-placeholders.mjs']);
 const found = [];
 

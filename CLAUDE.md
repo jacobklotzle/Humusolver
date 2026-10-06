@@ -13,7 +13,7 @@ operations (second). Every page must end with a clear next step.
   endpoint can run on the server. Every page is prerendered.
 - **Plain CSS** with design tokens in `src/styles/tokens.css`. No CSS framework.
 - **Fonts**: self-hosted through Fontsource. No Google Fonts requests at runtime.
-- **Leads**: `POST /api/quote` validates the form, then forwards it to a Google Apps Script web app.
+- **Leads**: `POST /api/quote/` (trailing slash) validates the form, then forwards it to a Google Apps Script web app.
   The script appends a row to a Google Sheet and emails a notification.
 - **Hosting**: Railway, which auto-deploys the `main` branch from GitHub. `server.mjs` wraps
   Astro's Node handler to add 301s, security headers, noindex, and preview basic auth.
@@ -34,18 +34,23 @@ npm run check      # astro check + placeholder report
 ```
 src/
   content/           # ALL editable copy lives here (Markdown/YAML); the owner edits these
-    pages/           # long-form page bodies
     uses/            # one .md per application or audience page
     products/        # one .yaml per product (rates, package sizes, prices)
-    research/        # one .md per cited study summary
+    pages/           # benefits, about-us, services, privacy
+    research.yaml    # verified study summaries (livestock entries are feature-flagged)
     faq.yaml
-  components/        # Astro components (CtaBand, QuoteForm, Placeholder, Schema, ...)
+    photos.yaml      # gallery captions and alt text
+  components/        # Astro components (CtaBand, LeadForm, Estimator, Placeholder, ...)
+  lib/               # schema.ts (JSON-LD), leads.ts (form fields + validation), placeholders, redirects
+  site.config.ts     # business facts: phone, address, people, OMRI flag
   layouts/           # BaseLayout handles <head>, SEO meta, JSON-LD, header/footer
   pages/             # routes; keep thin, pull content from src/content
   pages/api/quote.ts # the only server route
   styles/
 public/              # static files: favicon, robots.txt, og images
-scripts/             # placeholder report, Apps Script source (apps-script/Code.gs)
+scripts/             # placeholder report, Apps Script source + setup guide (apps-script/)
+server.mjs           # Railway entry: redirects, compression, headers, preview auth
+railway.json         # Railway build/start/healthcheck config
 ```
 
 ## Content rules (non-negotiable)
@@ -78,7 +83,7 @@ scripts/             # placeholder report, Apps Script source (apps-script/Code.
 - Every page's frontmatter needs `title` (≤ 60 chars, format `Topic | Humusolver`) and
   `description` (≤ 155 chars). The build warns when either is missing.
 - One `<h1>` per page. Logical heading order.
-- JSON-LD from `components/Schema.astro`: `Organization` + `LocalBusiness` site-wide,
+- JSON-LD from `src/lib/schema.ts` (placeholders are stripped automatically): `Organization` + `LocalBusiness` site-wide,
   `Product` on product pages, `FAQPage` on /faq/, `BreadcrumbList` on nested pages.
 - Keep the legacy URLs (`/about-us/`, `/benefits/`, `/products/`, `/services/`, `/photos/`,
   `/contact-us/`). Real 301 redirects live in `src/lib/redirects.mjs` and are applied by
@@ -117,3 +122,10 @@ Never commit secrets. Keep `.env.example` up to date when adding a variable. Set
 - Make small, focused commits using Conventional Commits: `feat: add quote form endpoint`,
   `content: draft row-crop page`, `fix: focus ring contrast`.
 - Run `npm run build` before committing anything that touches layouts, config, or the API route.
+
+## Gotchas
+
+- Astro scoped styles don't reach child components. To style an `<Icon>` SVG from a parent, use `:global(svg)`.
+- YAML values containing `[[TYPE: note]]` must be quoted, because the colon breaks plain YAML.
+- The `file()` loader doesn't preserve order, so `faq.yaml` and `photos.yaml` entries carry an `order` field.
+- Astro 7 uses the `unified()` Markdown processor from `@astrojs/markdown-remark` so the placeholder remark plugin runs.
