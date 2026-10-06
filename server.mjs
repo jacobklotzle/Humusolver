@@ -14,7 +14,8 @@ const compress = compression(); // gzip/brotli for HTML, CSS, JS, JSON, SVG
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '0.0.0.0';
 const PREVIEW = process.env.SITE_MODE !== 'production';
-const PASSWORD = process.env.PREVIEW_PASSWORD || '';
+// Trim whitespace and stray quotes: easy to pick up when pasting into Railway's Raw Editor.
+const PASSWORD = (process.env.PREVIEW_PASSWORD || '').trim().replace(/^(['"])(.*)\1$/, '$2');
 const CANONICAL = process.env.SITE_URL ? new URL(process.env.SITE_URL) : null;
 
 function safeEqual(a, b) {
@@ -27,7 +28,8 @@ function authorized(req) {
   if (!PREVIEW || !PASSWORD) return true;
   const header = req.headers.authorization || '';
   if (!header.startsWith('Basic ')) return false;
-  const [, pass = ''] = Buffer.from(header.slice(6), 'base64').toString().split(':');
+  const decoded = Buffer.from(header.slice(6), 'base64').toString();
+  const pass = decoded.slice(decoded.indexOf(':') + 1).trim(); // username is ignored
   return safeEqual(pass, PASSWORD);
 }
 
@@ -71,4 +73,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, HOST, () => {
   console.log(`Humusolver site listening on http://${HOST}:${PORT} (${PREVIEW ? 'preview' : 'production'})`);
+  if (PREVIEW) console.log(PASSWORD ? `Preview password gate ON (${PASSWORD.length} characters)` : 'Preview password gate OFF (PREVIEW_PASSWORD not set)');
 });
