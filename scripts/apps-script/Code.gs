@@ -4,7 +4,7 @@
  * Receives leads from the website's /api/quote/ endpoint, appends them to the
  * "Leads" sheet, and emails a notification. Setup steps: scripts/apps-script/README.md
  *
- * Script property required (Project Settings → Script properties):
+ * Script property (created automatically by setup()):
  *   SHARED_SECRET  must match APPS_SCRIPT_SECRET in Railway
  */
 
@@ -82,8 +82,31 @@ function json(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
 
-/** Run once from the editor to create the sheet and trigger the permission prompt. */
+/**
+ * Run once from the editor. Creates the Leads sheet, generates SHARED_SECRET if it
+ * doesn't exist yet, and triggers Google's permission prompt. The secret is printed in
+ * the Execution log: copy it into Railway as APPS_SCRIPT_SECRET.
+ */
 function setup() {
   getSheet();
   MailApp.getRemainingDailyQuota();
+  const props = PropertiesService.getScriptProperties();
+  let secret = props.getProperty('SHARED_SECRET');
+  if (!secret) {
+    secret = (Utilities.getUuid() + Utilities.getUuid()).replace(/-/g, '');
+    props.setProperty('SHARED_SECRET', secret);
+    console.log('Generated a new SHARED_SECRET.');
+  }
+  console.log('APPS_SCRIPT_SECRET=' + secret);
+}
+
+/** Prints the current secret again if you need it later. */
+function showSecret() {
+  console.log('APPS_SCRIPT_SECRET=' + PropertiesService.getScriptProperties().getProperty('SHARED_SECRET'));
+}
+
+/** Makes a new secret (if the old one leaks). Update Railway afterward. */
+function rotateSecret() {
+  PropertiesService.getScriptProperties().deleteProperty('SHARED_SECRET');
+  setup();
 }
