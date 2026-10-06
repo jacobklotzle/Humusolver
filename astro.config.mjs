@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
+import { unified } from '@astrojs/markdown-remark';
 import { remarkPlaceholders } from './src/lib/remark-placeholders.mjs';
 
 const SITE_URL = process.env.SITE_URL || 'https://humusolver.com';
@@ -17,7 +18,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkPlaceholders],
+    processor: unified({ remarkPlugins: [remarkPlaceholders] }),
   },
   image: {
     responsiveStyles: true,

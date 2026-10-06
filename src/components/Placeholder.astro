@@ -1,0 +1,10 @@
+---
+// Block-level placeholder for a missing photo, testimonial, etc.
+// Always pass `text` in [[TYPE: note]] form so `npm run placeholders` can find it.
+import { renderInline } from '../lib/placeholders.mjs';
+interface Props { text: string; minHeight?: string; }
+const { text, minHeight } = Astro.props;
+---
+<div class="ph-block" style={minHeight ? `min-height:${minHeight}` : undefined}>
+  <p style="margin:0"><Fragment set:html={renderInline(text)} /></p>
+</div>

@@ -1,0 +1,35 @@
+# Humusolver FS Granular
+# Rates and package sizes come from the original humusolver.com Products page.
+title: Humusolver FS Granular Humic & Fulvic Acid | Humusolver
+description: Granular humic and fulvic acid concentrate that blends with dry fertilizer for broadcast application. 5–20 lb per acre. 50 lb and 2,000 lb bags.
+name: Humusolver FS Granular
+order: 2
+form: Granule
+tagline: Blends with dry fertilizer for broadcasting
+summary: An extracted humic and fulvic acid concentrate in granular form. It blends easily with other granulated fertilizers, so it goes on in the same pass as your broadcast program.
+image: ../../assets/photos/planter-spring-field.jpg
+imageAlt: Red tractor pulling a 12-row planter across a worked field in spring
+omriEligible: false
+bestFor:
+  - Blending with dry fertilizer at the retailer or on the farm
+  - Broadcast application on row-crop ground
+  - Pasture and hay ground
+  - Custom spreading
+body:
+  - FS Granular puts the same humic and fulvic chemistry in a granule sized to blend with dry fertilizer, so it doesn't add a trip across the field.
+  - Ask about custom spreading if you're near Monticello, Indiana.
+rates:
+  - use: Ground application (broadcast)
+    rate: 5–20 lb per acre
+    notes: Blended with your dry fertilizer
+packages:
+  - size: 50 lb bag
+    price: "[[PRICE NEEDED: 50 lb bag]]"
+  - size: 2,000 lb mini bulk bag
+    price: "[[PRICE NEEDED: 2,000 lb mini bulk]]"
+    note: Freight quoted per order
+faqs:
+  - q: Can my co-op blend it in?
+    a: "FS Granular is made to blend with other granulated fertilizers for broadcasting. [[OWNER CONFIRM: granule size/SGN for blend compatibility]]"
+  - q: Is FS Granular OMRI Listed?
+    a: "[[OWNER CONFIRM: OMRI status of FS Granular]]"

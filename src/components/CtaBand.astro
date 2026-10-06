@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+import { business } from '../site.config';
+interface Props { heading?: string; text?: string; operation?: string; }
+const {
+  heading = 'Get pricing for your acres',
+  text = 'Tell us what you grow, how many acres, and whether you want freight or will-call pickup. We\'ll call you back with pricing and freight options.',
+  operation,
+} = Astro.props;
+const quoteHref = operation ? `/quote/?operation=${encodeURIComponent(operation)}` : '/quote/';
+---
+<section class="cta-band section--green" aria-labelledby="cta-heading">
+  <div class="wrap cta-band__inner">
+    <div>
+      <h2 id="cta-heading">{heading}</h2>
+      <p class="lede">{text}</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--gold" href={quoteHref}>Request a Quote <Icon name="arrow" /></a>
+      <a class="btn btn--ghost-light" href={business.phoneHref}><Icon name="phone" /> Call {business.phone}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .cta-band { padding-block: clamp(2.75rem, 2rem + 3vw, 4.5rem); background-image: radial-gradient(120% 140% at 100% 0%, rgb(200 150 46 / 0.22), transparent 55%); }
+  .cta-band__inner { display: grid; gap: 1.5rem; align-items: center; }
+  .cta-band h2 { color: #fff; margin-bottom: 0.4em; }
+  .cta-band .lede { margin: 0; }
+  @media (min-width: 900px) { .cta-band__inner { grid-template-columns: 1.4fr auto; gap: 3rem; } }
+</style>

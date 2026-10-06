@@ -1,0 +1,247 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Ph from '../components/Ph.astro';
+import Placeholder from '../components/Placeholder.astro';
+import ProductCard from '../components/ProductCard.astro';
+import UseCard from '../components/UseCard.astro';
+import FaqList from '../components/FaqList.astro';
+import { business } from '../site.config';
+import { faqSchema } from '../lib/schema';
+import hero from '../assets/photos/planter-spring-field.jpg';
+import rowCropsImg from '../assets/photos/corn-canopy.jpg';
+import pastureImg from '../assets/photos/forage-stand-check.jpg';
+import rootsImg from '../assets/photos/corn-roots-in-hand.jpg';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+const methods = (await getCollection('uses'))
+  .filter((u) => u.data.kind === 'method')
+  .sort((a, b) => a.data.order - b.data.order);
+const homeFaqs = (await getCollection('faq')).filter((f) => f.data.home).map((f) => f.data);
+
+const methodIcons: Record<string, string> = {
+  'row-starter': 'seed',
+  'broadcast-soil': 'leaf',
+  'foliar-spray': 'drop',
+  'irrigation-injection': 'drop',
+  'seed-treatment': 'seed',
+  'hydroponics-greenhouse': 'sprout',
+  'nitrogen-programs': 'root',
+};
+---
+<BaseLayout
+  title="Humusolver | Humic & Fulvic Acid for Row Crops and Pasture"
+  description="Humic and fulvic acid concentrate for corn, soybeans, pasture, and hay ground. Family-owned in Monticello, Indiana. Ships nationwide. Request a quote."
+  schema={[faqSchema(homeFaqs)]}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <Image src={hero} alt="" widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" class="hero__bg" />
+    <div class="wrap hero__inner">
+      <p class="eyebrow">Humic & fulvic acid concentrate · Monticello, Indiana</p>
+      <h1>Balanced soil makes healthy plants and animals.</h1>
+      <p class="hero__lede">
+        Humusolver adds concentrated humic and fulvic acids to the fertilizer pass you already make. It's made for
+        row crops, pasture, and hay ground, and it ships dry from a family business in Indiana.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--gold" href="/quote/">Get a Quote <Icon name="arrow" /></a>
+        <a class="btn btn--ghost-light" href={business.phoneHref}><Icon name="phone" /> {business.phone}</a>
+      </div>
+      <ul class="hero__trust" aria-label="Why Humusolver">
+        <li><Icon name="check" /> Family-owned, 50+ years in ag</li>
+        <li><Icon name="truck" /> Ships nationwide or will-call</li>
+        <li><Icon name="leaf" /> {business.omri.confirmed ? 'OMRI Listed (Humusolver-100)' : <Ph text="[[OWNER CONFIRM: OMRI Listed?]]" />}</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Audiences -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Who it's for</p>
+        <h2>Built for the ground you farm</h2>
+      </div>
+      <div class="grid grid--2">
+        <article class="card card--link audience">
+          <div class="card__media"><Image src={rowCropsImg} alt="Dense corn canopy at mid-season" widths={[480, 800]} sizes="(min-width: 900px) 50vw, 100vw" /></div>
+          <p class="eyebrow">Corn · Soybeans · Small grains</p>
+          <h3><a href="/uses/row-crops/">Row crops</a></h3>
+          <p>Add it to your row starter, blend it with dry fertilizer, or spray it in-season. It doesn't add a pass.</p>
+          <span class="more" aria-hidden="true">Rates & timing for row crops →</span>
+        </article>
+        <article class="card card--link audience">
+          <div class="card__media"><Image src={pastureImg} alt="Grower standing in a thick green forage stand" widths={[480, 800]} sizes="(min-width: 900px) 50vw, 100vw" /></div>
+          <p class="eyebrow">Pasture · Hay · Forage</p>
+          <h3><a href="/uses/pasture-livestock/">Pasture & livestock</a></h3>
+          <p>Healthy herds start with healthy forage, and healthy forage starts with the soil. Rebuild the soil that feeds your animals.</p>
+          <span class="more" aria-hidden="true">Rates & timing for pasture →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section section--paper">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2>Concentrated humus, in a bag</h2>
+        <p class="lede">Humates are ancient, fully decomposed humus. Humusolver puts the most active parts, humic and fulvic acids, into a form you can spray, inject, or blend.</p>
+        <ol class="steps">
+          <li><strong>Holds nutrients in the root zone.</strong> Humic substances help keep calcium, magnesium, potassium, and micronutrients where roots can reach them.</li>
+          <li><strong>Builds soil structure.</strong> Humus binds soil into aggregates that take in water and air.</li>
+          <li><strong>Supports soil life.</strong> Microbes cycle nutrients, and humus is part of the environment they live in.</li>
+        </ol>
+        <a href="/benefits/" class="btn btn--ghost">The science in plain language <Icon name="arrow" /></a>
+      </div>
+      <figure class="figure">
+        <Image src={rootsImg} alt="A hand holding a young corn plant with its full root system" widths={[480, 800, 1100]} sizes="(min-width: 860px) 45vw, 100vw" style="aspect-ratio: 4/5" />
+        <figcaption>Root growth is the most consistently reported plant response to humic substances in published research.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Products</p>
+        <h2>Two forms, one concentrate</h2>
+        <p class="lede">Choose a soluble powder for anything that runs through water, or granules that blend with dry fertilizer.</p>
+      </div>
+      <div class="grid grid--2">
+        {products.map((p) => <ProductCard product={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Uses -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Application methods</p>
+        <h2>Works with the equipment you already run</h2>
+      </div>
+      <div class="grid grid--4">
+        {methods.map((u) => <UseCard href={`/uses/${u.id}/`} title={u.data.cardTitle} summary={u.data.summary} icon={methodIcons[u.id]} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Straight talk on the research</p>
+        <h2>We show you the studies, including the ones where it didn't work</h2>
+        <p class="lede">Humic products get oversold. Here's what independent, peer-reviewed research has actually found.</p>
+      </div>
+      <div class="grid grid--3 stats">
+        <div class="stat">
+          <p class="stat__num">+21%</p>
+          <p class="stat__label">average root growth across many published studies</p>
+          <p class="stat__src">Rose et al., 2014 meta-analysis. Mostly pot and greenhouse work; results varied widely.</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num">+1–4%</p>
+          <p class="stat__label">corn yield in USDA-ARS replicated strip trials in Iowa</p>
+          <p class="stat__src">Olk et al., 2022. Larger gains on droughty, eroded ground (Olk et al., 2021).</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num">No effect</p>
+          <p class="stat__label">in some well-run trials, including California vegetables</p>
+          <p class="stat__src">Hartz & Bottoms, 2010. That's why we recommend check strips on your own ground.</p>
+        </div>
+      </div>
+      <p style="margin-top:2rem"><a class="btn btn--ghost-light" href="/research/">Read the research summaries <Icon name="arrow" /></a></p>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">From our customers</p>
+        <h2>What growers say</h2>
+      </div>
+      <div class="grid grid--3">
+        <Placeholder text="[[TESTIMONIAL NEEDED: row-crop customer, with name, county, and crop]]" />
+        <Placeholder text="[[TESTIMONIAL NEEDED: pasture or hay customer]]" />
+        <Placeholder text="[[TESTIMONIAL NEEDED: long-time customer or dealer]]" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Common questions</p>
+        <h2>Before you order</h2>
+      </div>
+      <FaqList items={homeFaqs} />
+      <p style="margin-top:1.5rem"><a href="/faq/">See all FAQs →</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    color: #fff;
+    min-height: min(88vh, 46rem);
+    display: grid;
+    align-items: end;
+    padding-block: clamp(4rem, 3rem + 8vw, 9rem) clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  }
+  .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, rgb(20 15 10 / 0.86) 0%, rgb(20 15 10 / 0.62) 55%, rgb(20 15 10 / 0.25) 100%),
+      linear-gradient(0deg, rgb(20 15 10 / 0.7), transparent 50%);
+  }
+  .hero__inner > * { max-width: 44rem; }
+  .hero .eyebrow { color: var(--gold-200); }
+  .hero h1 { color: #fff; }
+  .hero__lede { font-size: var(--step-1); line-height: 1.5; color: #f1ebe0; margin-bottom: 1.75rem; }
+  .hero__trust { list-style: none; padding: 0; margin: 2rem 0 0; display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; font-weight: 600; }
+  .hero__trust li { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .hero__trust svg { width: 1.15rem; height: 1.15rem; color: var(--gold); }
+
+  .audience h3 { font-size: var(--step-2); }
+  .audience h3 a { color: inherit; text-decoration: none; }
+  .audience .more { color: var(--humus); }
+  .audience .eyebrow { margin-bottom: 0.35rem; }
+
+  .steps { padding: 0; margin: 1.5rem 0 2rem; list-style: none; counter-reset: s; display: grid; gap: 1rem; }
+  .steps li { counter-increment: s; position: relative; padding-left: 3rem; }
+  .steps li::before {
+    content: counter(s);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.1rem;
+    height: 2.1rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--humus);
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 800;
+  }
+
+  .stat { border-top: 3px solid var(--gold); padding-top: 1.25rem; }
+  .stat__num { font-family: var(--font-head); font-size: var(--step-4); font-weight: 800; line-height: 1; color: #fff; margin-bottom: 0.5rem; }
+  .stat__label { font-size: var(--step-1); line-height: 1.35; color: #f3ede2; }
+  .stat__src { font-size: var(--step--1); color: #cfc6b6; margin: 0; }
+</style>

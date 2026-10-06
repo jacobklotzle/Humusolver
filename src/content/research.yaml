@@ -1,0 +1,277 @@
+# Published research on humic substances IN GENERAL (not Humusolver specifically).
+# Rules: only add a study after opening its DOI/publisher page. Summarize faithfully, including
+# null results. category: crops | soil | pasture | livestock | review
+# Livestock entries only appear when FEATURE_LIVESTOCK_RESEARCH=true.
+
+- id: rose-2014-meta-analysis
+  category: review
+  title: "A Meta-Analysis and Review of Plant-Growth Response to Humic Substances: Practical Implications for Agriculture"
+  authors: Rose MT, Patti AF, Little KR, Brown AL, Jackson WR, Cavagnaro TR
+  year: 2014
+  journal: Advances in Agronomy 124:37–89
+  doi: 10.1016/B978-0-12-800138-7.00002-4
+  url: https://doi.org/10.1016/B978-0-12-800138-7.00002-4
+  openAccess: false
+  studyType: Meta-analysis
+  conditions: Humic substances from coal/lignite, peat, soil, and compost across many plant types and conditions
+  finding: On average, humic substances increased shoot dry weight by about 22% and root dry weight by about 21%. Responses varied a lot with the source of the material, application rate (more was not always better), plant type, and growing conditions.
+  tags: [crops, review]
+
+- id: ma-2024-yield-nue-meta
+  category: review
+  title: "The Impact of Humic Acid Fertilizers on Crop Yield and Nitrogen Use Efficiency: A Meta-Analysis"
+  authors: Ma Y, Cheng X, Zhang Y
+  year: 2024
+  journal: Agronomy 14:2763
+  doi: 10.3390/agronomy14122763
+  url: https://doi.org/10.3390/agronomy14122763
+  openAccess: true
+  studyType: Meta-analysis
+  conditions: Global dataset of field studies
+  finding: Humic acid raised crop yield by 12% and nitrogen use efficiency by 27% on average. Gains were largest with adequate rainfall, near-neutral soil pH (6–8), and low soil nitrogen. They were weaker in alkaline, high-nitrogen, or low-carbon soils.
+  tags: [crops, review, nitrogen]
+
+- id: olk-2022-iowa-maize-extensive
+  category: crops
+  title: "Maize Growth Responses to a Humic Product in Iowa Production Fields: An Extensive Approach"
+  authors: Olk DC, Dinnes DL, Callaway CR (USDA-ARS)
+  year: 2022
+  journal: Frontiers in Plant Science
+  doi: 10.3389/fpls.2021.778603
+  url: https://doi.org/10.3389/fpls.2021.778603
+  openAccess: true
+  studyType: Field trial (USDA-ARS)
+  conditions: Corn in Iowa production fields, with some sites in Nebraska and South Dakota. A liquid leonardite-based humic product, 5 replicated site-years plus 30–35 demonstration fields per year, 2009–2013.
+  finding: Combine-measured yield increased 1–4% (0.2–0.4 Mg/ha) in all five replicated site-years. Leaf area increased. Grain and stover nutrient levels and soil properties showed no consistent response.
+  tags: [crops]
+
+- id: olk-2021-iowa-maize-soil-weather
+  category: crops
+  title: Maize Growth and Grain Yield Responses to a Micronized Humic Product Across Soil Types and Annual Weather Patterns in Central Iowa
+  authors: Olk DC, Dinnes DL, Scoresby JR, et al.
+  year: 2021
+  journal: Frontiers in Plant Science
+  doi: 10.3389/fpls.2021.672078
+  url: https://doi.org/10.3389/fpls.2021.672078
+  openAccess: true
+  studyType: Field trial (USDA-ARS)
+  conditions: Two rainfed corn–soybean fields in central Iowa, 2012–2014 and 2016
+  finding: Response depended on landscape position and weather. In the 2012 drought, yield rose up to 19% on an eroded hilltop. In 2013, the higher rate gave about 7%. In other years and positions responses were smaller, and 15 soil properties showed no change.
+  tags: [crops, soil]
+
+- id: gao-2022-humic-urea-wheat
+  category: crops
+  title: Humic Acids Incorporated into Urea at Different Proportions Increased Winter Wheat Yield and Optimized Fertilizer-Nitrogen Fate
+  authors: Gao S, Zhang S, Yuan L, et al.
+  year: 2022
+  journal: Agronomy 12(7):1526
+  doi: 10.3390/agronomy12071526
+  url: https://doi.org/10.3390/agronomy12071526
+  openAccess: true
+  studyType: Field trial
+  conditions: Winter wheat, North China Plain, two seasons (2018–2020). Urea with 0.2–5% humic acid incorporated.
+  finding: Humic-enhanced urea increased grain yield, biomass, and fertilizer-nitrogen uptake and reduced nitrogen loss. The lowest rate (0.2%) performed about like plain urea.
+  tags: [crops, nitrogen]
+
+- id: verlinden-2009-yield-nutrient-uptake
+  category: crops
+  title: Application of Humic Substances Results in Consistent Increases in Crop Yield and Nutrient Uptake
+  authors: Verlinden G, Pycke B, Mertens J, et al.
+  year: 2009
+  journal: Journal of Plant Nutrition 32(9):1407–1426
+  doi: 10.1080/01904160903092630
+  url: https://doi.org/10.1080/01904160903092630
+  openAccess: false
+  studyType: 6 field and 2 pot experiments
+  conditions: Grass, maize, potato, and spinach in a high-input system. Leonardite-derived products applied as liquid or with fertilizer.
+  finding: Dry-matter yield increased, most clearly in potato (13–17%), and nitrogen and phosphorus uptake increased.
+  tags: [crops]
+
+- id: canellas-2015-biostimulants
+  category: review
+  title: Humic and fulvic acids as biostimulants in horticulture
+  authors: Canellas LP, Olivares FL, Aguiar NO, Jones DL, Nebbioso A, Mazzei P, Piccolo A
+  year: 2015
+  journal: Scientia Horticulturae 196:15–27
+  doi: 10.1016/j.scienta.2015.09.013
+  url: https://doi.org/10.1016/j.scienta.2015.09.013
+  openAccess: false
+  studyType: Review
+  conditions: Review of how humic and fulvic acids act on plants
+  finding: Describes how humic and fulvic acids can increase lateral root development, change nutrient uptake and metabolism, and improve stress tolerance.
+  tags: [crops, review]
+
+- id: ampong-2022-soil-health
+  category: soil
+  title: Understanding the Role of Humic Acids on Crop Performance and Soil Health
+  authors: Ampong K, Thilakaranthna MS, Gorim LY
+  year: 2022
+  journal: Frontiers in Agronomy
+  doi: 10.3389/fagro.2022.848621
+  url: https://doi.org/10.3389/fagro.2022.848621
+  openAccess: true
+  studyType: Review
+  conditions: Literature review of soil physical, chemical, and biological effects
+  finding: Studies report humic acids can improve soil structure, water-holding capacity, cation exchange capacity, and nutrient availability. Results were inconsistent, though, and the authors say recommendations should be tested under local conditions.
+  tags: [soil, review, pasture]
+
+- id: hartz-2010-vegetables-no-effect
+  category: soil
+  title: Humic Substances Generally Ineffective in Improving Vegetable Crop Nutrient Uptake or Productivity
+  authors: Hartz TK, Bottoms TG
+  year: 2010
+  journal: HortScience 45(6):906–910
+  doi: 10.21273/HORTSCI.45.6.906
+  url: https://doi.org/10.21273/HORTSCI.45.6.906
+  openAccess: true
+  studyType: Field, greenhouse, and lab trials
+  conditions: California lettuce and processing tomato. Five commercial humic products at typical label rates, 2008–2009.
+  finding: "Humic products had no significant effect on emergence, phosphorus uptake, plant growth, or tomato yield. The authors concluded that typical commercial rates are unlikely to improve yield in representative field soils."
+  result: none
+  tags: [crops, soil]
+
+- id: verlinden-2010-grass-pastures
+  category: pasture
+  title: Effect of humic substances on nutrient uptake by herbage and on production and nutritive value of herbage from sown grass pastures
+  authors: Verlinden G, Coussens T, De Vliegher A, Baert G, Haesaert G
+  year: 2010
+  journal: Grass and Forage Science 65(1):133–144
+  doi: 10.1111/j.1365-2494.2009.00726.x
+  url: https://doi.org/10.1111/j.1365-2494.2009.00726.x
+  openAccess: false
+  studyType: 6 field experiments
+  conditions: Sown grass pastures. Humic substances applied with mineral fertilizer or slurry.
+  finding: First-cut yield increased in two of six experiments. Total-season herbage yield and forage quality did not change.
+  result: mixed
+  tags: [pasture]
+
+- id: neves-2019-marandu-pasture
+  category: pasture
+  title: Dry matter yield, growth index, chemical composition and digestibility of Marandu grass under nitrogen and organic fertilization
+  authors: Neves RG, Freitas GS, Deminicis BB, et al.
+  year: 2019
+  journal: "Semina: Ciências Agrárias 40(5):1901–1912"
+  doi: 10.5433/1679-0359.2019v40n5p1901
+  url: https://doi.org/10.5433/1679-0359.2019v40n5p1901
+  openAccess: true
+  studyType: Field trial (2 years)
+  conditions: Degraded tropical pasture (Brachiaria) unfertilized for 15+ years. Nitrogen at 0–400 kg/ha with four humic substance rates.
+  finding: "Nitrogen drove the yield response, and humic substance rate did not affect dry matter, protein, fiber, or digestibility."
+  result: none
+  tags: [pasture]
+
+# ---------- Livestock (feature-flagged) ----------
+- id: arif-2019-poultry-review
+  category: livestock
+  title: "Humic acid as a feed additive in poultry diets: a review"
+  authors: Arif M, Alagawany M, Abd El-Hack ME, et al.
+  year: 2019
+  journal: Iranian Journal of Veterinary Research 20(3):167–172
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6811714/
+  openAccess: true
+  studyType: Review
+  conditions: Broilers, layers, and quail. About 0.1–0.5% humic acid in feed, or ppm levels in water.
+  finding: Studies reported better feed efficiency and weight gain in broilers and better egg production in layers. Other studies found no difference, and high levels sometimes reduced egg production.
+  result: mixed
+  tags: [livestock, poultry]
+
+- id: proskina-2023-broilers
+  category: livestock
+  title: Assessment of the inclusion of a feed additive of sodium humate derived from freshwater sapropel in diets for broiler chickens
+  authors: Proskina L, Barzdina D, Valdovska A, et al.
+  year: 2023
+  journal: Veterinary World 16(10):2029–2041
+  doi: 10.14202/vetworld.2023.2029-2041
+  url: https://doi.org/10.14202/vetworld.2023.2029-2041
+  openAccess: true
+  studyType: Feeding trial
+  conditions: 210 Ross 308 broilers. Sodium humate in drinking water, days 8–35.
+  finding: Live weight and weight gain rose about 3–4%, and carcass weight about 5–6%. The authors call for larger trials.
+  tags: [livestock, poultry]
+
+- id: wang-2020-weaned-piglets
+  category: livestock
+  title: Effects of Dietary Supplementation of Humic Acid Sodium and Zinc Oxide on Growth Performance, Immune Status and Antioxidant Capacity of Weaned Piglets
+  authors: Wang Q, Ying J, Zou P, et al.
+  year: 2020
+  journal: Animals 10(11):2104
+  doi: 10.3390/ani10112104
+  url: https://doi.org/10.3390/ani10112104
+  openAccess: true
+  studyType: Feeding trial
+  conditions: 72 weaned piglets. Sodium humate at 2,000 mg/kg of diet for 30 days, compared with a control and with zinc oxide plus antibiotic.
+  finding: Daily gain was higher than the control (252 vs 187 g/day) and similar to the zinc oxide/antibiotic group. Diarrhea fell from 21.7% to 9.6%.
+  tags: [livestock, swine]
+
+- id: terry-2018-beef-heifers
+  category: livestock
+  title: Effect of humic substances on rumen fermentation, nutrient digestibility, methane emissions, and rumen microbiota in beef heifers
+  authors: Terry SA, Ribeiro GDO, Gruninger RJ, et al.
+  year: 2018
+  journal: Journal of Animal Science 96(9)
+  doi: 10.1093/jas/sky265
+  url: https://doi.org/10.1093/jas/sky265
+  openAccess: true
+  studyType: Feeding trial (Latin square)
+  conditions: 8 Angus × Hereford heifers on a barley silage diet. 0–300 mg humic substances per kg body weight, 28-day periods.
+  finding: Nitrogen retention and protein digestibility improved. There was no effect on methane.
+  tags: [livestock, cattle]
+
+- id: abouamra-2026-calves
+  category: livestock
+  title: Digestibility, ruminal enzyme activity, fermentation characteristics, and selected blood biochemical parameters in calves supplemented with humic acid
+  authors: Abouamra WK, Amhabj AMA, Tawfik HM, et al.
+  year: 2026
+  journal: Frontiers in Veterinary Science
+  doi: 10.3389/fvets.2025.1704848
+  url: https://doi.org/10.3389/fvets.2025.1704848
+  openAccess: true
+  studyType: Feeding trial
+  conditions: 45 Friesian-cross calves (about 280 kg), Egypt. Humic acid at 1% or 2% of concentrate for 120 days.
+  finding: Final weight and daily gain were not significantly different. Feed conversion improved because the calves ate less feed for similar gain.
+  result: mixed
+  tags: [livestock, cattle]
+
+- id: uyarlar-2025-dairy-prepartum
+  category: livestock
+  title: Prepartum Dietary Supplementation of Potassium Humate Improves Postpartum Lactation Performance, Metabolic Profile of Multiparous Cows, and Immune Response of Their Calves
+  authors: Uyarlar C, Rahman A, Gultepe EE, et al.
+  year: 2025
+  journal: Animals 15:279
+  doi: 10.3390/ani15020279
+  url: https://doi.org/10.3390/ani15020279
+  openAccess: true
+  studyType: Feeding trial
+  conditions: 75 Holstein cows, Turkey. Potassium humate at 0–2% of concentrate during the 60-day dry period.
+  finding: The 0.5% rate improved milk yield and immune markers. The 2% rate lowered peak milk yield compared with the control, so more was not better.
+  result: mixed
+  tags: [livestock, cattle, dairy]
+
+- id: estrada-angulo-2025-lambs
+  category: livestock
+  title: "Leonardite (Humic and Fulvic Acid Complex) Long-Term Supplementation in Lambs Finished Under Subtropical Climate Conditions"
+  authors: Estrada-Angulo A, Quezada-Rubio JA, Ponce-Barraza E, et al.
+  year: 2025
+  journal: Ruminants 5(2):20
+  doi: 10.3390/ruminants5020020
+  url: https://doi.org/10.3390/ruminants5020020
+  openAccess: true
+  studyType: Feeding trial
+  conditions: 48 hair-breed lambs on a high-energy diet under heat load. Leonardite at 0–0.6% of diet for 130 days.
+  finding: "No effect on intake, daily gain, feed efficiency, or carcass traits."
+  result: none
+  tags: [livestock, sheep]
+
+- id: ataollahi-2024-angus-beef-quality
+  category: livestock
+  title: The quality and nutritional value of beef from Angus steers fed different levels of humate
+  authors: Ataollahi F, Piltz JW, Casburn GR, Holman BWB
+  year: 2024
+  journal: Veterinary and Animal Science
+  doi: 10.1016/j.vas.2024.100355
+  url: https://doi.org/10.1016/j.vas.2024.100355
+  openAccess: true
+  studyType: Feeding trial
+  conditions: 40 Angus steers. Potassium humate at 0–140 g per head per day for 100 days.
+  finding: There were no harmful effects on beef quality or shelf life, only minor changes in fatty acids and color. This study measured meat quality, not growth.
+  tags: [livestock, cattle]

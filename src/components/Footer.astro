@@ -1,0 +1,69 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import Ph from './Ph.astro';
+import { business } from '../site.config';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer section--dark">
+  <div class="wrap site-footer__grid">
+    <div class="site-footer__brand">
+      <Logo light />
+      <p>{business.tagline} Humic and fulvic acid concentrate from a family business in Monticello, Indiana.</p>
+      <p class="site-footer__contact">
+        <a href={business.phoneHref}><Icon name="phone" /> {business.phone}</a>
+        <a href={`mailto:${business.email}`}><Icon name="mail" /> {business.email}</a>
+        <span><Icon name="pin" /> {business.address.city}, {business.address.region} {business.address.postalCode}</span>
+      </p>
+    </div>
+    <nav aria-label="Products and uses">
+      <h2 class="site-footer__h">Products & uses</h2>
+      <ul>
+        <li><a href="/products/humusolver-100/">Humusolver-100 Soluble Powder</a></li>
+        <li><a href="/products/fs-granular/">Humusolver FS Granular</a></li>
+        <li><a href="/uses/row-crops/">Row crops</a></li>
+        <li><a href="/uses/pasture-livestock/">Pasture & livestock</a></li>
+        <li><a href="/uses/">All application methods</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Company">
+      <h2 class="site-footer__h">Company</h2>
+      <ul>
+        <li><a href="/about-us/">About us</a></li>
+        <li><a href="/services/">Shipping & services</a></li>
+        <li><a href="/benefits/">How humates work</a></li>
+        <li><a href="/research/">Research</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/photos/">Photos</a></li>
+        <li><a href="/contact-us/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2 class="site-footer__h">Ready to order?</h2>
+      <p>Tell us your acres and product. We'll call back with pricing and freight.</p>
+      <a class="btn btn--gold" href="/quote/">Request a Quote</a>
+    </div>
+  </div>
+  <div class="wrap site-footer__legal">
+    <p>Also an authorized dealer for {business.dealerLines.join(' and ')}.</p>
+    <p>© {year} {business.legalName} · <a href="/privacy/">Privacy</a> · Statements about humic substances describe published research in general and are not a guarantee of results for any specific field or product. <Ph text="[[LABEL CHECK: confirm footer disclaimer wording against product label]]" /></p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { padding-block: clamp(3rem, 2rem + 4vw, 5rem) 2rem; font-size: 0.98rem; }
+  .site-footer__grid { display: grid; gap: 2.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+  .site-footer__brand { grid-column: span 1; }
+  @media (min-width: 900px) { .site-footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; } }
+  .site-footer__brand p { color: #d9d1c3; margin-top: 1rem; }
+  .site-footer__contact { display: grid; gap: 0.4rem; }
+  .site-footer__contact a, .site-footer__contact span { display: inline-flex; gap: 0.5rem; align-items: center; color: #f3ede2; text-decoration: none; }
+  .site-footer__contact a:hover { color: var(--gold-200); text-decoration: underline; }
+  .site-footer__contact svg { width: 1rem; height: 1rem; color: var(--gold); }
+  .site-footer__h { font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-200); margin-bottom: 0.9rem; }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+  .site-footer ul a { color: #f3ede2; text-decoration: none; }
+  .site-footer ul a:hover { color: var(--gold-200); text-decoration: underline; }
+  .site-footer__legal { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgb(255 255 255 / 0.15); font-size: 0.88rem; color: #cfc6b6; }
+  .site-footer__legal p { margin-bottom: 0.5rem; }
+</style>

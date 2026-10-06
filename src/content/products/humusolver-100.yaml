@@ -1,0 +1,49 @@
+# Humusolver-100 Soluble Powder
+# Rates and package sizes come from the original humusolver.com Products page.
+# To change a price, edit the `price` value. Keep the "$" and numbers only, e.g. "$42.00".
+title: Humusolver-100 Soluble Humic & Fulvic Powder | Humusolver
+description: Water-soluble 100-mesh humic and fulvic acid concentrate for row starters, foliar sprays, injection, and soil application. 2 lb to 1,000 lb sizes.
+name: Humusolver-100 Soluble Powder
+order: 1
+form: Soluble 100-mesh dry powder
+tagline: Dissolves into water for liquid systems
+summary: A humic and fulvic acid concentrate milled to a fine 100-mesh powder that mixes into water. Use it in row starters, foliar sprays, injection and irrigation systems, or apply it to soil.
+image: ../../assets/photos/corn-early-rows.jpg
+imageAlt: Young corn plants in evenly spaced rows on dark soil
+omriEligible: true
+bestFor:
+  - Row starter and in-furrow liquid programs
+  - Foliar sprays
+  - Irrigation, fertigation, and injector systems
+  - Hydroponics, greenhouse, and hand watering
+body:
+  - Humusolver-100 is made from humate mined in the San Juan Basin of northwest New Mexico. It is processed and dried at low heat into a fine, water-soluble powder.
+  - It ships as a dry powder, so it is easy to transport and stores well long-term. Mix only what you need.
+  - "The original Humusolver site lists Humusolver-100 for use with row starters and alongside nitrogen programs. [[LABEL CHECK: the old site called this a \"nitrogen stabilizer\". That term can be regulated, so confirm label wording before using it]]"
+rates:
+  - use: Ground application
+    rate: 5–10 lb per acre
+    notes: About 1.5–3.5 oz per 1,000 sq ft for gardens and turf
+  - use: Row starter
+    rate: 1–2 lb per acre
+    notes: In 1–3 gal of water per acre
+  - use: Foliar spray
+    rate: 1–2 oz per acre
+    notes: "In 20–50 gal of water per acre [[LABEL CHECK: confirm foliar rate units (oz vs lb) against label]]"
+packages:
+  - size: 2 lb bottle
+    price: "[[PRICE NEEDED: 2 lb bottle]]"
+  - size: 8 lb bottle
+    price: "[[PRICE NEEDED: 8 lb bottle]]"
+  - size: 50 lb bag
+    price: "[[PRICE NEEDED: 50 lb bag]]"
+  - size: 1,000 lb mini bulk bag
+    price: "[[PRICE NEEDED: 1,000 lb mini bulk]]"
+    note: Freight quoted per order
+faqs:
+  - q: Will it dissolve completely?
+    a: "Humusolver-100 is milled to 100 mesh so it mixes readily into water. Add it slowly to the tank with agitation running. [[LABEL CHECK: confirm mixing instructions and any jar-test recommendation]]"
+  - q: Can I tank-mix it with fertilizer?
+    a: "Many growers apply humic products with liquid fertilizer. Always run a jar test with your exact mix first. [[OWNER CONFIRM: known compatible/incompatible tank partners]]"
+  - q: How should I store it?
+    a: "Keep the container closed and dry. As a dry powder it stores well long-term. [[LABEL CHECK: shelf life and storage statement]]"

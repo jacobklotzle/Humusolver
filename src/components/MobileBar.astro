@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import { business } from '../site.config';
+---
+<div class="mobile-bar" role="region" aria-label="Quick actions">
+  <a href={business.phoneHref} class="mobile-bar__call"><Icon name="phone" /> Call</a>
+  <a href="/quote/" class="mobile-bar__quote">Get a Quote <Icon name="arrow" /></a>
+</div>
+<style>
+  .mobile-bar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 60;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 0.5rem;
+    padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom));
+    background: var(--topsoil);
+    box-shadow: 0 -4px 18px rgb(0 0 0 / 0.18);
+  }
+  .mobile-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 48px;
+    border-radius: 999px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .mobile-bar svg { width: 1.1rem; height: 1.1rem; }
+  .mobile-bar__call { border: 2px solid rgb(255 255 255 / 0.6); color: #fff; }
+  .mobile-bar__quote { background: var(--gold); color: var(--topsoil); }
+  @media (min-width: 760px) { .mobile-bar { display: none; } }
+</style>

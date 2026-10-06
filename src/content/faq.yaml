@@ -1,0 +1,55 @@
+# Frequently asked questions. `home: true` shows the question on the homepage too.
+# topic: product | application | ordering | science | organic
+- id: what-is-humusolver
+  topic: product
+  home: true
+  q: What is Humusolver?
+  a: Humusolver is a humic and fulvic acid concentrate made from natural humate deposits mined in northwest New Mexico. It comes as a water-soluble powder (Humusolver-100) and as a granule that blends with dry fertilizer (FS Granular).
+- id: replace-fertilizer
+  topic: science
+  home: true
+  q: Does Humusolver replace fertilizer?
+  a: "No. Humates are biostimulants that work alongside your fertility program, not instead of it. They are not a significant source of nitrogen, phosphorus, or potassium. [[LABEL CHECK: guaranteed analysis]]"
+- id: which-product
+  topic: product
+  home: true
+  q: Which product should I use?
+  a: Use Humusolver-100 for anything that goes through water, like row starters, sprayers, injectors, irrigation, greenhouses, and hydroponics. Use FS Granular to blend with dry fertilizer for broadcasting. Not sure? Call us or choose "Not sure" on the quote form.
+- id: how-much
+  topic: application
+  q: How much do I need per acre?
+  a: General rates are 5–10 lb per acre of Humusolver-100 for ground application, 1–2 lb per acre in a row starter, and 5–20 lb per acre of FS Granular broadcast. The quote page has an estimator that turns your acres into pounds and bags.
+- id: results
+  topic: science
+  q: Will I see a yield increase?
+  a: Results vary by field, soil, weather, and management, so we don't promise a number. Published field trials on corn range from no measurable effect to a few percent, with larger gains on stressed or eroded ground. Leave a few untreated check strips and compare them with your yield monitor at harvest. That's the best way to see what Humusolver does on your ground.
+- id: organic
+  topic: organic
+  home: true
+  q: Can I use Humusolver on certified organic ground?
+  a: "Humusolver-100 has been OMRI Listed for organic production. [[OWNER CONFIRM: current OMRI listing (old certificate expired June 1, 2026) and status of FS Granular]] Always check with your certifier before applying any input."
+- id: tank-mix
+  topic: application
+  q: Can I tank-mix Humusolver-100?
+  a: "Growers commonly apply humic products with liquid fertilizers and other spray partners. Always do a jar test with your exact mix before filling the tank. [[OWNER CONFIRM: any known incompatible tank partners]]"
+- id: storage
+  topic: product
+  q: How do I store it, and does it expire?
+  a: "Store in a closed container in a dry place. As a dry product it stores well long-term. [[LABEL CHECK: shelf-life statement]]"
+- id: shipping
+  topic: ordering
+  home: true
+  q: Do you ship to my state?
+  a: Yes. We ship across the United States by parcel or freight, and you can also pick up at will-call near Monticello, Indiana. Freight is quoted with your order.
+- id: how-to-order
+  topic: ordering
+  q: How do I order?
+  a: "Request a quote online or call 574-581-1989. We'll confirm the product, quantity, and freight or pickup, and then arrange payment and delivery. [[OWNER CONFIRM: accepted payment methods]]"
+- id: livestock
+  topic: science
+  q: Can I use Humusolver for livestock?
+  a: Humusolver is sold as a soil amendment for crops, pasture, and hay ground. Healthy soil grows better forage, and that's how we recommend it. It isn't labeled as a feed or feed supplement.
+- id: dealers
+  topic: ordering
+  q: Do you sell other products?
+  a: We're also an authorized dealer for GroPal SeaMineral and Maxicrop Seaweed. Ask about them with your quote.

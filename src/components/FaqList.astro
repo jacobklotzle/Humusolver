@@ -1,0 +1,43 @@
+---
+import { renderInline } from '../lib/placeholders.mjs';
+interface Props { items: { q: string; a: string }[]; }
+const { items } = Astro.props;
+---
+<div class="faq">
+  {items.map((f) => (
+    <details>
+      <summary><span set:html={renderInline(f.q)} /></summary>
+      <div class="faq__a"><p set:html={renderInline(f.a)} /></div>
+    </details>
+  ))}
+</div>
+<style>
+  .faq { display: grid; gap: 0.75rem; max-width: 52rem; }
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1rem 3rem 1rem 1.25rem;
+    position: relative;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.08rem;
+    min-height: 48px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '';
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-right: 2.5px solid var(--clay);
+    border-bottom: 2.5px solid var(--clay);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.2s;
+  }
+  details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .faq__a { padding: 0 1.25rem 1.1rem; color: var(--topsoil-2); }
+  .faq__a p { margin: 0; }
+</style>

@@ -1,0 +1,7 @@
+---
+// Renders a string from config/content, turning [[TYPE: note]] into a visible placeholder.
+import { renderInline } from '../lib/placeholders.mjs';
+interface Props { text?: string; }
+const { text = '' } = Astro.props;
+---
+<Fragment set:html={renderInline(text)} />

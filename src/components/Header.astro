@@ -1,0 +1,108 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { business, nav } from '../site.config';
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a href="/" class="site-header__home" aria-label="Humusolver home"><Logo /></a>
+
+    <nav aria-label="Main" class="site-nav" id="site-nav" data-open="false">
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+      <div class="site-nav__actions">
+        <a class="btn btn--ghost" href={business.phoneHref}><Icon name="phone" />{business.phone}</a>
+        <a class="btn" href="/quote/">Get a Quote</a>
+      </div>
+    </nav>
+
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+      <Icon name="menu" class="menu-btn__open" /><Icon name="close" class="menu-btn__close" />
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const navEl = document.getElementById('site-nav');
+  btn?.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(open));
+    navEl?.setAttribute('data-open', String(open));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') {
+      btn.setAttribute('aria-expanded', 'false');
+      navEl?.setAttribute('data-open', 'false');
+      btn.focus();
+    }
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(246 241 231 / 0.94);
+    backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.25rem; }
+  .site-header__home { text-decoration: none; }
+  .site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.25rem; }
+  .site-nav a:not(.btn) {
+    display: block;
+    padding: 0.5rem 0.7rem;
+    border-radius: 8px;
+    color: var(--topsoil);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .site-nav a:not(.btn):hover { background: var(--humus-100); color: var(--humus-600); }
+  .site-nav a[aria-current='page'] { color: var(--humus); box-shadow: inset 0 -3px 0 var(--gold); border-radius: 0; }
+  .site-nav__actions { display: flex; gap: 0.5rem; }
+  .site-nav__actions .btn { min-height: 44px; padding: 0.55rem 1rem; }
+  .menu-btn {
+    display: none;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--paper);
+    color: var(--topsoil);
+    cursor: pointer;
+    place-items: center;
+  }
+  .menu-btn svg { width: 24px; height: 24px; }
+  .menu-btn__close { display: none; }
+  .menu-btn[aria-expanded='true'] .menu-btn__open { display: none; }
+  .menu-btn[aria-expanded='true'] .menu-btn__close { display: block; }
+
+  @media (min-width: 1100px) {
+    .site-nav { display: flex; align-items: center; gap: 1rem; }
+  }
+  @media (max-width: 1099px) {
+    .menu-btn { display: grid; }
+    .site-nav {
+      display: none;
+      position: absolute;
+      inset: 100% 0 auto 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 0.75rem var(--gutter) 1.25rem;
+    }
+    .site-nav[data-open='true'] { display: block; }
+    .site-nav ul { flex-direction: column; }
+    .site-nav a:not(.btn) { padding: 0.8rem 0.5rem; font-size: 1.1rem; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .site-nav a[aria-current='page'] { box-shadow: inset 4px 0 0 var(--gold); padding-left: 0.9rem; }
+    .site-nav__actions { margin-top: 1rem; flex-wrap: wrap; }
+  }
+</style>

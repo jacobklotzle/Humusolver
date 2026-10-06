@@ -1,0 +1,87 @@
+---
+import '@fontsource-variable/archivo/wght.css';
+import '@fontsource-variable/archivo/wght-italic.css';
+import '@fontsource-variable/source-sans-3/wght.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { IS_PREVIEW } from '../site.config';
+import { clean, organizationSchema, websiteSchema, breadcrumbSchema } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  crumbs?: { name: string; href: string }[];
+  schema?: object[];
+  cta?: false | { heading?: string; text?: string; operation?: string };
+  noindex?: boolean;
+}
+const { title, description, ogImage = '/og-default.jpg', crumbs, schema = [], cta = {}, noindex = false } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const pageTitle = clean(title);
+const pageDesc = clean(description);
+if (import.meta.env.DEV) {
+  if (pageTitle.length > 60) console.warn(`[seo] title > 60 chars on ${Astro.url.pathname}: ${pageTitle}`);
+  if (pageDesc.length > 155) console.warn(`[seo] description > 155 chars on ${Astro.url.pathname}`);
+}
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [organizationSchema(), websiteSchema(), ...(crumbs ? [breadcrumbSchema(crumbs)] : []), ...schema],
+};
+const robots = IS_PREVIEW || noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+---
+<!doctype html>
+<html lang="en" class:list={{ 'is-preview': IS_PREVIEW }}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#2f4a2c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Humusolver" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {IS_PREVIEW && (
+      <div class="preview-banner" role="note">
+        Preview build: highlighted <mark class="ph"><span class="ph__type">PLACEHOLDERS</span></mark> mark details to confirm before launch.
+      </div>
+    )}
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    {cta !== false && <CtaBand {...cta} />}
+    <Footer />
+    <MobileBar />
+  </body>
+</html>
+
+<style>
+  .preview-banner {
+    background: #fff1a8;
+    color: #4a3500;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.45rem var(--gutter);
+    border-bottom: 1px dashed #b38600;
+  }
+</style>
