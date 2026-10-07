@@ -42,7 +42,7 @@ const crumbs = [{ name: 'Research', href: '/research/' }];
         <p class="eyebrow">What the research shows</p>
         <h2>Six ways humic acid works for your crop</h2>
       </div>
-      <div class="grid grid--3">
+      <div class="grid benefits">
         {benefits.map((b) => (
           <article class="card benefit">
             <span class="benefit__icon"><Icon name={b.icon as any} /></span>
@@ -92,6 +92,7 @@ const crumbs = [{ name: 'Research', href: '/research/' }];
   </section>
 </BaseLayout>
 <style>
+  .benefits { grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
   .benefit { display: flex; flex-direction: column; }
   .benefit__icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 12px; background: var(--humus-100); color: var(--humus); margin-bottom: 0.9rem; }
   .benefit__icon :global(svg) { width: 1.4rem; height: 1.4rem; }
