@@ -1,12 +1,12 @@
 ---
 title: Humic Acid for Corn, Soybeans & Row Crops | Humusolver
-description: Add humic and fulvic acid to your corn, soybean, and wheat program as a row starter, a broadcast blend, or in-season. Rates per acre and research.
+description: Bigger roots and more from every pound of nitrogen. Add Humusolver to your corn, soybean, and wheat program. Rates per acre and research.
 h1: Humic and fulvic acid for row crops
 kind: audience
 order: 1
 cardTitle: Row crops
 summary: Corn, soybeans, and small grains. Add it to your row starter, blend it with dry fertilizer, or apply it in-season.
-lede: Humusolver adds concentrated humic and fulvic acids to the fertilizer program you already run. You don't need a new pass or new equipment, and it ships dry from Indiana.
+lede: Bigger roots, better nutrient uptake, and more from every pound of nitrogen. Humusolver adds concentrated humic and fulvic acids to the program you already run, with no extra pass and no new equipment.
 image: ../../assets/photos/corn-canopy.jpg
 imageAlt: Dense corn canopy at mid-season under a clear blue sky
 products: [humusolver-100, fs-granular]
@@ -14,11 +14,14 @@ operation: row-crop
 researchTags: [crops, soil, review]
 ---
 
-## Why growers add humates
+## Why row-crop growers add humates
 
-Humus is the dark, stable part of soil organic matter. It holds water, keeps nutrients in the root zone, and feeds soil life. Humates are a concentrated, naturally occurring source of the humic and fulvic acids found in humus. That makes them an easy way to add those compounds without hauling tons of compost or manure.
+- **More roots.** Humic substances increased root growth about 21% on average across published studies (Rose et al., 2014).
+- **More from your nitrogen.** Nitrogen use efficiency rose 27% and yield 12% on average in a 2024 meta-analysis of field studies (Ma et al., 2024).
+- **Proven in Iowa corn.** USDA-ARS strip trials in production fields measured combine yield gains in all five replicated site-years (Olk et al., 2022).
+- **Built for dry years.** On an eroded hilltop in the 2012 drought, corn yielded up to 19% more with a humic product (Olk et al., 2021).
 
-Researchers study humic substances as **biostimulants**. They look at root growth, nutrient uptake, and how plants handle stress. The [research page](/research/) summarizes what published studies have found, including where results were mixed.
+[See the research](/research/)
 
 ## Where Humusolver fits in your program
 
@@ -31,11 +34,9 @@ Researchers study humic substances as **biostimulants**. They look at root growt
 
 Rates are from Humusolver's published general application rates. [[LABEL CHECK: confirm all rates against current label]]
 
-## What to expect, honestly
+## Prove it on your own ground
 
-Humic products are not a substitute for fertility. They're used **alongside** your fertilizer program. In USDA-ARS strip trials in Iowa corn, a humic product raised combine yield by 1–4%. Gains were larger on droughty, eroded hilltops in a dry year. Results vary with soil type, organic matter, weather, rate, and the source of the humic material.
-
-The best way to know what Humusolver does on your ground is to **leave check strips**. Apply to most of the field, leave a few untreated strips, and compare them at harvest with your yield monitor. If you want help setting up a strip trial, call us.
+Humusolver works alongside your fertility program, not in place of it. The best way to see it is a strip trial: apply it to most of a field, leave a few strips untreated, and compare with your yield monitor at harvest. We're confident you'll see the difference, and we're happy to help you set up the trial. [Get a quote](/quote/?operation=row-crop) or call us.
 
 ## From growers
 

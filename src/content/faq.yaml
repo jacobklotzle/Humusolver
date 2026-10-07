@@ -11,7 +11,7 @@
   topic: science
   home: true
   q: Does Humusolver replace fertilizer?
-  a: "No. Humates are biostimulants that work alongside your fertility program, not instead of it. They are not a significant source of nitrogen, phosphorus, or potassium. [[LABEL CHECK: guaranteed analysis]]"
+  a: "No. It makes your fertilizer work harder. Research shows humic acid improves nitrogen use efficiency by 27% on average, so more of what you apply ends up in the crop. It's not a significant source of nitrogen, phosphorus, or potassium itself. [[LABEL CHECK: guaranteed analysis]]"
 - id: which-product
   order: 3
   topic: product
@@ -26,8 +26,9 @@
 - id: results
   order: 5
   topic: science
+  home: true
   q: Will I see a yield increase?
-  a: Results vary by field, soil, weather, and management, so we don't promise a number. Published field trials on corn range from no measurable effect to a few percent, with larger gains on stressed or eroded ground. Leave a few untreated check strips and compare them with your yield monitor at harvest. That's the best way to see what Humusolver does on your ground.
+  a: "Research on humic substances is encouraging. A 2024 meta-analysis of field studies found 12% higher yields on average, and USDA-ARS trials in Iowa corn measured yield gains of 1–4% in every replicated site-year, and up to 19% on drought-stressed ground. Every field is different, so the best proof is a strip trial on your own ground. We're confident you'll see the difference."
 - id: organic
   order: 6
   topic: organic

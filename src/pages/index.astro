@@ -43,8 +43,8 @@ const methodIcons: Record<string, string> = {
       <p class="eyebrow">Humic & fulvic acid concentrate · Monticello, Indiana</p>
       <h1>Balanced soil makes healthy plants and animals.</h1>
       <p class="hero__lede">
-        Humusolver adds concentrated humic and fulvic acids to the fertilizer pass you already make. It's made for
-        row crops, pasture, and hay ground, and it ships dry from a family business in Indiana.
+        Concentrated humic and fulvic acids that go on with the pass you already make. In published research,
+        humic substances are shown to grow bigger roots, improve nutrient uptake, and get more out of every pound of nitrogen.
       </p>
       <div class="btn-row">
         <a class="btn btn--gold" href="/quote/">Get a Quote <Icon name="arrow" /></a>
@@ -53,7 +53,7 @@ const methodIcons: Record<string, string> = {
       <ul class="hero__trust" aria-label="Why Humusolver">
         <li><Icon name="check" /> Family-owned, 50+ years in ag</li>
         <li><Icon name="truck" /> Ships nationwide or will-call</li>
-        <li><Icon name="leaf" /> {business.omri.confirmed ? 'OMRI Listed (Humusolver-100)' : <Ph text="[[OWNER CONFIRM: OMRI Listed?]]" />}</li>
+        <li><Icon name="leaf" /> {business.omri.confirmed ? `OMRI Listed since ${business.omri.listedSince}` : <Ph text="[[OWNER CONFIRM: OMRI Listed?]]" />}</li>
       </ul>
     </div>
   </section>
@@ -84,23 +84,38 @@ const methodIcons: Record<string, string> = {
     </div>
   </section>
 
+  <!-- Testimonials -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">From our customers</p>
+        <h2>What growers say</h2>
+      </div>
+      <div class="grid grid--3">
+        <Placeholder text="[[TESTIMONIAL NEEDED: row-crop customer, with name, county, and crop]]" />
+        <Placeholder text="[[TESTIMONIAL NEEDED: pasture or hay customer]]" />
+        <Placeholder text="[[TESTIMONIAL NEEDED: long-time customer or dealer]]" />
+      </div>
+    </div>
+  </section>
+
   <!-- How it works -->
   <section class="section section--paper">
     <div class="wrap split">
       <div>
         <p class="eyebrow">How it works</p>
-        <h2>Concentrated humus, in a bag</h2>
-        <p class="lede">Humates are ancient, fully decomposed humus. Humusolver puts the most active parts, humic and fulvic acids, into a form you can spray, inject, or blend.</p>
+        <h2>Bigger roots. Better uptake. More from every fertilizer dollar.</h2>
+        <p class="lede">Humates are concentrated, ancient humus, the most active part of rich soil. Humusolver puts their humic and fulvic acids into a form you can spray, inject, or blend.</p>
         <ol class="steps">
-          <li><strong>Holds nutrients in the root zone.</strong> Humic substances help keep calcium, magnesium, potassium, and micronutrients where roots can reach them.</li>
-          <li><strong>Builds soil structure.</strong> Humus binds soil into aggregates that take in water and air.</li>
-          <li><strong>Supports soil life.</strong> Microbes cycle nutrients, and humus is part of the environment they live in.</li>
+          <li><strong>Grows more roots.</strong> Across published studies, humic substances increased root growth by about 21% on average. More roots reach more water and nutrients.</li>
+          <li><strong>Puts fertilizer to work.</strong> Humic acid raised nitrogen use efficiency by 27% on average in a 2024 meta-analysis. More of what you apply ends up in the crop.</li>
+          <li><strong>Builds soil that holds up.</strong> Humus binds soil into aggregates that take in water and air, and holds nutrients where roots can reach them.</li>
         </ol>
         <a href="/benefits/" class="btn btn--ghost">The science in plain language <Icon name="arrow" /></a>
       </div>
       <figure class="figure">
         <Image src={rootsImg} alt="A hand holding a young corn plant with its full root system" widths={[480, 800, 1100]} sizes="(min-width: 860px) 45vw, 100vw" style="aspect-ratio: 4/5" />
-        <figcaption>Root growth is the most consistently reported plant response to humic substances in published research.</figcaption>
+        <figcaption>Root growth is the most consistently reported benefit of humic substances in published research.</figcaption>
       </figure>
     </div>
   </section>
@@ -136,45 +151,43 @@ const methodIcons: Record<string, string> = {
   <section class="section section--dark">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Straight talk on the research</p>
-        <h2>We show you the studies, including the ones where it didn't work</h2>
-        <p class="lede">Humic products get oversold. Here's what independent, peer-reviewed research has actually found.</p>
+        <p class="eyebrow">Backed by research</p>
+        <h2>What humic acid does, by the numbers</h2>
+        <p class="lede">Independent, peer-reviewed studies on humic substances, including large reviews that pooled results from many trials.</p>
       </div>
-      <div class="grid grid--3 stats">
+      <div class="grid grid--4 stats">
         <div class="stat">
           <p class="stat__num">+21%</p>
-          <p class="stat__label">average root growth across many published studies</p>
-          <p class="stat__src">Rose et al., 2014 meta-analysis. Mostly pot and greenhouse work; results varied widely.</p>
+          <p class="stat__label">more root growth on average</p>
+          <p class="stat__src">Meta-analysis of published studies, Rose et al., 2014</p>
         </div>
         <div class="stat">
-          <p class="stat__num">+1–4%</p>
-          <p class="stat__label">corn yield in USDA-ARS replicated strip trials in Iowa</p>
-          <p class="stat__src">Olk et al., 2022. Larger gains on droughty, eroded ground (Olk et al., 2021).</p>
+          <p class="stat__num">+12%</p>
+          <p class="stat__label">higher crop yield on average</p>
+          <p class="stat__src">Global meta-analysis of field studies, Ma et al., 2024</p>
         </div>
         <div class="stat">
-          <p class="stat__num">No effect</p>
-          <p class="stat__label">in some well-run trials, including California vegetables</p>
-          <p class="stat__src">Hartz & Bottoms, 2010. That's why we recommend check strips on your own ground.</p>
+          <p class="stat__num">+27%</p>
+          <p class="stat__label">better nitrogen use efficiency on average</p>
+          <p class="stat__src">Ma et al., 2024. Largest gains in low-nitrogen, near-neutral soils.</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num">Up to 19%</p>
+          <p class="stat__label">more corn yield on drought-stressed ground</p>
+          <p class="stat__src">USDA-ARS, Iowa, 2012 drought, eroded hilltop. Olk et al., 2021.</p>
         </div>
       </div>
-      <p style="margin-top:2rem"><a class="btn btn--ghost-light" href="/research/">Read the research summaries <Icon name="arrow" /></a></p>
+      <div class="research-cta">
+        <p><strong>Prove it on your own ground.</strong> Try Humusolver on a strip of your field and compare at harvest. We're confident you'll see the difference.</p>
+        <div class="btn-row">
+          <a class="btn btn--gold" href="/quote/">Get a quote <Icon name="arrow" /></a>
+          <a class="btn btn--ghost-light" href="/research/">See the science <Icon name="arrow" /></a>
+        </div>
+      </div>
+      <p class="stats-note">Studies tested humic substances from a range of sources. Results vary with soil, crop, rate, and weather.</p>
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">From our customers</p>
-        <h2>What growers say</h2>
-      </div>
-      <div class="grid grid--3">
-        <Placeholder text="[[TESTIMONIAL NEEDED: row-crop customer, with name, county, and crop]]" />
-        <Placeholder text="[[TESTIMONIAL NEEDED: pasture or hay customer]]" />
-        <Placeholder text="[[TESTIMONIAL NEEDED: long-time customer or dealer]]" />
-      </div>
-    </div>
-  </section>
 
   <!-- FAQ -->
   <section class="section section--paper">
@@ -244,4 +257,8 @@ const methodIcons: Record<string, string> = {
   .stat__num { font-family: var(--font-head); font-size: var(--step-4); font-weight: 800; line-height: 1; color: #fff; margin-bottom: 0.5rem; }
   .stat__label { font-size: var(--step-1); line-height: 1.35; color: #f3ede2; }
   .stat__src { font-size: var(--step--1); color: #cfc6b6; margin: 0; }
+  .research-cta { margin-top: 2.5rem; padding: 1.5rem; border-radius: var(--radius-lg); background: rgb(255 255 255 / 0.06); display: grid; gap: 1rem; }
+  .research-cta p { margin: 0; font-size: var(--step-1); color: #f3ede2; max-width: 52ch; }
+  @media (min-width: 900px) { .research-cta { grid-template-columns: 1fr auto; align-items: center; } }
+  .stats-note { margin: 1.25rem 0 0; font-size: var(--step--1); color: #cfc6b6; }
 </style>

@@ -36,6 +36,7 @@ export const business = {
     // seeing a current certificate at omri.org.
     confirmed: false,
     product: 'Humusolver-100',
+    listedSince: 2011, // OMRI "Date Listed" on the certificate
     note: '[[OWNER CONFIRM: current OMRI listing for Humusolver-100 (old certificate expired June 1, 2026); is FS Granular listed?]]',
   },
   dealerLines: ['GroPal SeaMineral', 'Maxicrop Seaweed'],

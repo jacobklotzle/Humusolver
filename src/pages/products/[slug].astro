@@ -20,6 +20,21 @@ const { product } = Astro.props;
 const p = product.data;
 const crumbs = [{ name: 'Products', href: '/products/' }, { name: p.name, href: `/products/${product.id}/` }];
 const og = await getImage({ src: p.image, width: 1200, height: 630, format: 'jpg' });
+// Cost per acre from the lowest per-lb price among priced packages (shown only once real prices exist).
+const perLb = p.packages
+  .map((pk) => ({ lb: Number(pk.size.replace(/,/g, '').match(/([\d.]+)\s*lb/i)?.[1] ?? 0), price: /\[\[/.test(pk.price) ? 0 : Number(pk.price.replace(/[^0-9.]/g, '')) }))
+  .filter((x) => x.lb > 0 && x.price > 0)
+  .map((x) => x.price / x.lb)
+  .sort((a, b) => a - b)[0];
+const money = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+const costRows = perLb
+  ? p.rates.flatMap((r) => {
+      const m = r.rate.match(/([\d.]+)\s*[–-]\s*([\d.]+)\s*(lb|oz)\s*per acre/i);
+      if (!m) return [];
+      const k = m[3].toLowerCase() === 'oz' ? 1 / 16 : 1;
+      return [{ use: r.use, range: `${money(Number(m[1]) * k * perLb)}–${money(Number(m[2]) * k * perLb)}` }];
+    })
+  : [];
 const uses = (await getCollection('uses')).filter((u) => u.data.products.includes(product.id)).sort((a, b) => a.data.order - b.data.order);
 ---
 <BaseLayout title={p.title} description={p.description} crumbs={crumbs} ogImage={og.src}
@@ -58,6 +73,13 @@ const uses = (await getCollection('uses')).filter((u) => u.data.products.include
             ))}</tbody>
           </table>
         </div>
+        {costRows.length > 0 && (
+          <div class="per-acre">
+            <h3>What it costs per acre</h3>
+            <ul>{costRows.map((c) => <li><strong>{c.range}</strong> per acre: {c.use.toLowerCase()}</li>)}</ul>
+            <p class="hint">Based on bulk pricing before freight.</p>
+          </div>
+        )}
         <p>Freight is quoted per order, or pick up at will-call in Monticello, Indiana. <a href="/services/">Shipping details</a>.</p>
 
         {uses.length > 0 && (<>
@@ -83,5 +105,8 @@ const uses = (await getCollection('uses')).filter((u) => u.data.products.include
 </BaseLayout>
 <style>
   .content-grid { display: grid; gap: 3rem; }
+  .per-acre { background: var(--humus-100); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.25rem 0; }
+  .per-acre h3 { margin-top: 0; }
+  .per-acre ul { margin-bottom: 0.5rem; }
   @media (min-width: 1000px) { .content-grid { grid-template-columns: minmax(0, 1fr) 20rem; } .content-aside { position: sticky; top: 6rem; align-self: start; } }
 </style>

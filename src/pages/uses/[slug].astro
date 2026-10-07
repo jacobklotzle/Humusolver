@@ -19,6 +19,7 @@ const products = (await getCollection('products')).filter((p) => d.products.incl
 const studies = (await getCollection('research'))
   .filter((s) => s.data.tags.some((t) => d.researchTags.includes(t)))
   .filter((s) => FEATURE_LIVESTOCK_RESEARCH || s.data.category !== 'livestock')
+  .filter((s) => s.data.result === 'positive')
   .sort((a, b) => b.data.year - a.data.year)
   .slice(0, 4);
 const others = (await getCollection('uses')).filter((u) => u.id !== use.id && u.data.kind === d.kind).sort((a, b) => a.data.order - b.data.order);
@@ -50,11 +51,11 @@ const others = (await getCollection('uses')).filter((u) => u.id !== use.id && u.
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Published research</p>
-          <h2>What studies on humic substances found</h2>
-          <p class="lede">These studies tested humic substances in general, not Humusolver specifically. Results vary, and we include the null results too.</p>
+          <h2>The research behind it</h2>
+          <p class="lede">Peer-reviewed studies on humic substances relevant to this use.</p>
         </div>
         <div class="grid grid--2">{studies.map((s) => <StudyCard study={s} />)}</div>
-        <p style="margin-top:1.5rem"><a href="/research/">All research summaries →</a></p>
+        <p style="margin-top:1.5rem"><a href="/research/">See all the science →</a></p>
       </div>
     </section>
   )}

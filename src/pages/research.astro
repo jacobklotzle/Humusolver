@@ -3,49 +3,65 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import StudyCard from '../components/StudyCard.astro';
+import Icon from '../components/Icon.astro';
 import Ph from '../components/Ph.astro';
 import { FEATURE_LIVESTOCK_RESEARCH } from '../site.config';
 
-const all = (await getCollection('research')).sort((a, b) => b.data.year - a.data.year);
+const all = (await getCollection('research'))
+  .filter((s) => FEATURE_LIVESTOCK_RESEARCH || s.data.category !== 'livestock')
+  .sort((a, b) => b.data.year - a.data.year);
+const positive = all.filter((s) => s.data.result === 'positive' && s.data.category !== 'livestock');
 const groups = [
-  { id: 'reviews', title: 'Big-picture reviews and meta-analyses', blurb: 'These pool results from many studies. They are the best guide to what to expect on average.', items: all.filter((s) => s.data.category === 'review') },
-  { id: 'crops', title: 'Row crops', blurb: 'Field trials on corn, wheat, and other crops, including USDA-ARS work in Iowa.', items: all.filter((s) => s.data.category === 'crops') },
-  { id: 'soil', title: 'Soil, plus trials that found no effect', blurb: 'What humic substances do (and don\'t do) in soil, including a well-known study that found no benefit.', items: all.filter((s) => s.data.category === 'soil') },
-  { id: 'pasture', title: 'Pasture and forage', blurb: 'Studies on grass and pasture so far show limited or no season-long yield response.', items: all.filter((s) => s.data.category === 'pasture') },
+  { id: 'reviews', title: 'Large reviews and meta-analyses', blurb: 'These pool results from many studies, so they show what to expect on average.', items: positive.filter((s) => s.data.category === 'review') },
+  { id: 'field', title: 'Field trials', blurb: 'Corn, wheat, potatoes, and grass, including USDA-ARS research in Iowa production fields.', items: positive.filter((s) => s.data.category !== 'review') },
   ...(FEATURE_LIVESTOCK_RESEARCH
-    ? [{ id: 'livestock', title: 'Livestock (feed-additive research)', blurb: 'Research on humic substances fed to animals. Humusolver is sold as a soil amendment and is not labeled as a feed. These studies are about humic substances in general.', items: all.filter((s) => s.data.category === 'livestock') }]
+    ? [{ id: 'livestock', title: 'Livestock (feed-additive research)', blurb: 'Research on humic substances fed to animals. Humusolver is sold as a soil amendment and is not labeled as a feed.', items: all.filter((s) => s.data.category === 'livestock') }]
     : []),
 ].filter((g) => g.items.length);
+const varied = all.filter((s) => s.data.result !== 'positive' && s.data.category !== 'livestock');
+
+const benefits = [
+  { icon: 'root', stat: '+21%', title: 'More root growth', text: 'Root growth increased about 21% on average across published studies, and shoot growth about 22%.', cite: 'Rose et al., 2014', href: '#rose-2014-meta-analysis' },
+  { icon: 'sprout', stat: '+12%', title: 'Higher yields', text: 'Humic acid raised crop yield 12% on average in a global meta-analysis of field studies.', cite: 'Ma et al., 2024', href: '#ma-2024-yield-nue-meta' },
+  { icon: 'leaf', stat: '+27%', title: 'More from your nitrogen', text: 'Nitrogen use efficiency rose 27% and nitrogen uptake 17% on average, with the biggest gains in low-nitrogen, near-neutral soils.', cite: 'Ma et al., 2024', href: '#ma-2024-yield-nue-meta' },
+  { icon: 'drop', stat: 'Up to 19%', title: 'Stronger in drought', text: 'In the 2012 drought, corn on an eroded Iowa hilltop yielded up to 19% more with a humic product. Gains were smaller in other years and positions.', cite: 'USDA-ARS, Olk et al., 2021', href: '#olk-2021-iowa-maize-soil-weather' },
+  { icon: 'seed', stat: 'N + P', title: 'Better nutrient uptake', text: 'Field and pot trials found increased nitrogen and phosphorus uptake, and potato yields up 13–17%.', cite: 'Verlinden et al., 2009', href: '#verlinden-2009-yield-nutrient-uptake' },
+  { icon: 'check', stat: 'Soil', title: 'Healthier soil', text: 'Studies report humic acids can improve soil structure, water-holding capacity, and nutrient availability.', cite: 'Ampong et al., 2022 (review)', href: '#ampong-2022-soil-health' },
+];
 const crumbs = [{ name: 'Research', href: '/research/' }];
 ---
-<BaseLayout title="Humic Acid Research: What Studies Show | Humusolver"
-  description="Plain-language summaries of peer-reviewed research on humic and fulvic acids in crops, soil, and pasture, including studies that found no effect."
+<BaseLayout title="The Science Behind Humic Acid | Humusolver"
+  description="What peer-reviewed research shows about humic and fulvic acids: more root growth, higher yields, better nitrogen use efficiency, and drought resilience."
   crumbs={crumbs}>
-  <PageHero eyebrow="Research" title="What the research actually says" crumbs={crumbs}
-    lede="Plain-language summaries of peer-reviewed studies on humic substances. We include the trials that found no benefit, because you deserve the full picture before you spend money." />
+  <PageHero eyebrow="Research" title="The science behind humates" crumbs={crumbs}
+    lede="Decades of peer-reviewed research show what humic and fulvic acids can do for roots, yields, and fertilizer efficiency. Here's what the studies found." />
 
   <section class="section section--tight">
     <div class="wrap">
-      <div class="grid grid--2 takeaways">
-        <div class="card">
-          <h2 class="h3">The honest takeaways</h2>
-          <ul class="check-list">
-            <li><span>Average effects in pooled studies are <strong>positive but modest</strong>, and they vary a lot by soil, crop, climate, rate, and the source of the humic material.</span></li>
-            <li><span>In USDA-ARS corn trials in Iowa, yield gains were <strong>1–4%</strong> in replicated strips, and larger on droughty, eroded ground in a dry year.</span></li>
-            <li><span>Several well-run studies found <strong>no benefit</strong>, especially for vegetables at typical rates and for season-long pasture yield.</span></li>
-            <li><span><strong>More isn't always better.</strong> Several studies found the response depends on rate.</span></li>
-          </ul>
-        </div>
-        <div class="card note--info" style="border:0">
-          <h2 class="h3">How to read these</h2>
-          <p>Every study below tested <strong>humic substances in general</strong>, often from leonardite, peat, or compost. None tested Humusolver specifically. Results from one product or field don't guarantee results on yours.</p>
-          <p>The best test is your own ground: apply Humusolver to most of a field, leave untreated check strips, and compare yields at harvest.</p>
-          <p><Ph text="[[OWNER CONFIRM: any Humusolver-specific trial data or on-farm results to add]]" /></p>
-        </div>
+      <div class="section-head">
+        <p class="eyebrow">What the research shows</p>
+        <h2>Six ways humic acid works for your crop</h2>
       </div>
+      <div class="grid grid--3">
+        {benefits.map((b) => (
+          <article class="card benefit">
+            <span class="benefit__icon"><Icon name={b.icon as any} /></span>
+            <p class="benefit__stat">{b.stat}</p>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+            <p class="benefit__cite"><a href={b.href}>{b.cite}</a></p>
+          </article>
+        ))}
+      </div>
+      <p class="note note--info" style="margin-top:2rem">
+        <strong>Want proof on your own farm?</strong> Apply Humusolver to most of a field, leave a strip untreated, and compare at harvest.
+        We're confident you'll see the difference. <a href="/quote/">Get a quote</a> for your trial.
+        <Ph text="[[OWNER CONFIRM: any Humusolver-specific trial data or on-farm results to feature here]]" />
+      </p>
       <nav aria-label="Research sections" class="jump">
         <span>Jump to:</span>
-        {groups.map((g) => <a href={`#${g.id}`}>{g.title.split(',')[0]}</a>)}
+        {groups.map((g) => <a href={`#${g.id}`}>{g.title}</a>)}
+        <a href="#varied">Results vary by field</a>
       </nav>
     </div>
   </section>
@@ -62,14 +78,34 @@ const crumbs = [{ name: 'Research', href: '/research/' }];
     </section>
   ))}
 
-  <section class="section section--tight">
-    <div class="wrap prose">
-      <p class="note"><strong>About these summaries:</strong> Each summary is based on the published abstract or full text, linked in the title. Numbers are as reported by the authors. These summaries are not a claim that Humusolver will produce the same results. Last reviewed October 2026.</p>
+  <section class="section section--tight" id="varied" aria-labelledby="varied-h">
+    <div class="wrap">
+      <details class="varied">
+        <summary><h2 id="varied-h" class="varied__h">Results vary by field</h2><span class="varied__hint">{varied.length} studies with mixed or no results. Tap to read.</span></summary>
+        <div class="varied__body">
+          <p>Like any input, humic products don't respond the same way on every field. Response depends on soil, crop, rate, weather, and the source of the humic material. These studies saw smaller or no effects under their conditions.</p>
+          <div class="grid grid--2">{varied.map((s) => <StudyCard study={s} />)}</div>
+        </div>
+      </details>
+      <p class="fine">Each summary is based on the published abstract or full text, linked in the title. Studies tested humic substances from various sources, not Humusolver specifically. Last reviewed October 2026.</p>
     </div>
   </section>
 </BaseLayout>
 <style>
-  .h3 { font-size: var(--step-1); }
+  .benefit { display: flex; flex-direction: column; }
+  .benefit__icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 12px; background: var(--humus-100); color: var(--humus); margin-bottom: 0.9rem; }
+  .benefit__icon :global(svg) { width: 1.4rem; height: 1.4rem; }
+  .benefit__stat { font-family: var(--font-head); font-weight: 800; font-size: var(--step-3); line-height: 1; color: var(--humus); margin-bottom: 0.4rem; }
+  .benefit__cite { margin-top: auto; padding-top: 0.75rem; font-size: var(--step--1); }
+  .benefit__cite a { color: var(--muted); }
   .jump { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 2rem; font-weight: 600; }
   .jump span { color: var(--muted); }
+  .varied { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+  .varied summary { cursor: pointer; padding: 1.25rem 1.5rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; list-style: none; }
+  .varied summary::-webkit-details-marker { display: none; }
+  .varied__h { font-size: var(--step-2); margin: 0; }
+  .varied__hint { color: var(--muted); font-size: var(--step--1); }
+  .varied__body { padding: 0 1.5rem 1.5rem; display: grid; gap: 1.25rem; }
+  .varied__body > p { max-width: var(--measure); margin: 0; }
+  .fine { margin-top: 1.5rem; font-size: var(--step--1); color: var(--muted); max-width: var(--measure); }
 </style>

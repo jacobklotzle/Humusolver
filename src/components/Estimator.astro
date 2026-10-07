@@ -16,6 +16,8 @@ function parseRate(rate: string) {
   return { lo, hi };
 }
 const parseLb = (size: string) => Number(size.replace(/,/g, '').match(/([\d.]+)\s*lb/i)?.[1] ?? 0);
+// A price counts only once it's a real number (placeholders like [[PRICE NEEDED]] are ignored).
+const parsePrice = (price: string) => (/\[\[/.test(price) ? null : Number(price.replace(/[^0-9.]/g, '')) || null);
 
 const data = products.map((p) => ({
   id: p.id,
@@ -23,7 +25,7 @@ const data = products.map((p) => ({
   rates: p.data.rates
     .map((r) => ({ use: r.use, label: r.rate, ...parseRate(r.rate) }))
     .filter((r) => r.lo !== undefined && /acre/i.test(r.label)),
-  packages: p.data.packages.map((pk) => ({ size: pk.size, lb: parseLb(pk.size) })).filter((pk) => pk.lb > 0),
+  packages: p.data.packages.map((pk) => ({ size: pk.size, lb: parseLb(pk.size), price: parsePrice(pk.price) })).filter((pk) => pk.lb > 0),
 }));
 ---
 <div class="estimator card" data-products={JSON.stringify(data)}>
@@ -59,7 +61,8 @@ const data = products.map((p) => ({
 
 <script>
   type Rate = { use: string; label: string; lo: number; hi: number };
-  type Prod = { id: string; name: string; rates: Rate[]; packages: { size: string; lb: number }[] };
+  type Pkg = { size: string; lb: number; price: number | null };
+  type Prod = { id: string; name: string; rates: Rate[]; packages: Pkg[] };
 
   const root = document.querySelector<HTMLElement>('.estimator');
   if (root) {
@@ -74,21 +77,24 @@ const data = products.map((p) => ({
     const fmt = (n: number) => (n >= 100 ? Math.round(n).toLocaleString() : n.toLocaleString(undefined, { maximumFractionDigits: 1 }));
 
     // Fill with the largest packages first, then cover the remainder with the smallest package that fits.
-    function suggest(lb: number, pkgs: Prod['packages']) {
+    function suggest(lb: number, pkgs: Pkg[]) {
       const sorted = [...pkgs].sort((a, b) => b.lb - a.lb);
-      const parts: string[] = [];
+      const picks: { pkg: Pkg; n: number }[] = [];
       let left = lb;
       for (const p of sorted) {
         if (p === sorted[sorted.length - 1]) break;
         const n = Math.floor(left / p.lb);
-        if (n > 0 && p.lb >= 50) { parts.push(`${n} × ${p.size}`); left -= n * p.lb; }
+        if (n > 0 && p.lb >= 50) { picks.push({ pkg: p, n }); left -= n * p.lb; }
       }
       if (left > 0.01) {
         const fit = [...sorted].reverse().find((p) => p.lb >= left) ?? sorted[0];
         const n = Math.ceil(left / fit.lb);
-        parts.push(`${n} × ${fit.size}`);
+        const same = picks.find((x) => x.pkg === fit);
+        if (same) same.n += n; else picks.push({ pkg: fit, n });
       }
-      return parts.join(' + ');
+      const priced = picks.every((x) => x.pkg.price != null);
+      const cost = priced ? picks.reduce((sum, x) => sum + x.n * (x.pkg.price as number), 0) : null;
+      return { text: picks.map((x) => `${x.n} × ${x.pkg.size}`).join(' + '), cost };
     }
 
     function fillUses() {
@@ -111,8 +117,12 @@ const data = products.map((p) => ({
       const hi = r.hi * acres;
       const range = lo === hi ? `${fmt(lo)} lb` : `${fmt(lo)}–${fmt(hi)} lb`;
       const pk = suggest(hi, p.packages);
-      out.innerHTML = `<strong class="estimator__big">${range}</strong><span>of ${p.name} for ${fmt(acres)} acres at ${r.label}</span><span class="estimator__pk">Suggested packaging (high rate): ${pk}</span>`;
-      summary = `${p.name}: ${range} for ${fmt(acres)} ac (${r.use}, ${r.label}); suggested ${pk}`;
+      const money = (n: number) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: n < 10 ? 2 : 0 });
+      const costLine = pk.cost != null
+        ? `<span class="estimator__cost">About <strong>${money(pk.cost / acres)} per acre</strong> · ${money(pk.cost)} total before freight</span>`
+        : '';
+      out.innerHTML = `<strong class="estimator__big">${range}</strong><span>of ${p.name} for ${fmt(acres)} acres at ${r.label}</span><span class="estimator__pk">Suggested packaging (high rate): ${pk.text}</span>${costLine}`;
+      summary = `${p.name}: ${range} for ${fmt(acres)} ac (${r.use}, ${r.label}); suggested ${pk.text}${pk.cost != null ? `; est. ${money(pk.cost)} (${money(pk.cost / acres)}/ac)` : ''}`;
       useBtn.hidden = false;
       useBtn.dataset.product = p.id;
     }
@@ -151,6 +161,7 @@ const data = products.map((p) => ({
   }
   .estimator__out :global(.estimator__big) { font-family: var(--font-head); font-size: var(--step-3); line-height: 1.1; color: var(--humus-600); }
   .estimator__out :global(.estimator__pk) { font-weight: 600; }
+  .estimator__out :global(.estimator__cost) { margin-top: 0.35rem; font-size: var(--step-1); color: var(--humus-600); }
   .estimator__out :global(.estimator__empty) { color: var(--muted); }
   .estimator__use { margin-top: 1rem; }
   .estimator__fine { font-size: var(--step--1); color: var(--muted); margin: 1rem 0 0; }

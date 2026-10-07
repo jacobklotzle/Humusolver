@@ -61,16 +61,20 @@ railway.json         # informational only: Railway deprecated config-as-code and
   files. Types: `TESTIMONIAL NEEDED`, `PRICE NEEDED`, `CITATION NEEDED`, `PHOTO NEEDED`,
   `ADDRESS NEEDED`, `LABEL CHECK`, `OWNER CONFIRM`. Placeholders render highlighted in preview mode.
   `npm run check` lists every one.
-- **Claims must be modest** and should match the product label. Do not write:
-  disease prevention or cure, "immunity," "detoxifies," pest control, guaranteed yields, or
-  "nitrogen stabilizer" (EPA can treat that as a pesticide claim). Use "may," "can help," and "is
-  associated with" for general humate science, and keep it separate from claims about Humusolver
-  itself.
+- **Tone: confident and sales-forward (owner-approved Oct 2026).** Lead with the strongest research
+  wins: +21% roots (Rose 2014), +12% yield and +27% nitrogen use efficiency (Ma 2024), up to 19% in
+  drought (Olk 2021). Use "shown to" where a cited study supports it. Frame strip trials as a confident
+  challenge ("We're confident you'll see the difference").
+- **Guardrails that stay:** every number keeps its context and citation ("up to 19%" always comes with
+  "drought year, eroded ground"); never present study results as Humusolver results; never imply a
+  yield guarantee or ROI number; no disease, immunity, "detoxifies," pest, or "nitrogen stabilizer" claims;
+  keep the footer "results vary" line; mixed and no-effect studies stay on /research/ in the collapsed
+  "Results vary by field" section (FTC substantiation means the totality of evidence must be available).
+  Use pages and the homepage show only positive studies.
 - **Livestock**: Humusolver's OMRI listing is for *crop fertilizers and soil amendments*. Never
   give feeding directions or say Humusolver is a feed or supplement. Livestock content is limited to
   (a) pasture and forage soil health, and (b) the Research page, which summarizes peer-reviewed work
-  on humic substances in general. Every Research entry carries a "this is about humic substances
-  broadly, not Humusolver" note. That page stays behind `FEATURE_LIVESTOCK_RESEARCH` until the owner
+  on humic substances in general. The research page notes that the studies tested humic substances broadly, not Humusolver. That page stays behind `FEATURE_LIVESTOCK_RESEARCH` until the owner
   confirms the product's regulatory status.
 - **Citations**: only cite papers whose DOI or publisher URL was actually opened and checked.
   Record authors, year, journal, DOI, a one-line finding, and the study conditions (species, dose,

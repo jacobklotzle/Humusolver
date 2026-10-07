@@ -1,9 +1,9 @@
 ---
 title: How Humic & Fulvic Acids Work in Soil | Humusolver
-description: A plain-language guide to humates, humic acid, and fulvic acid. What they are, how they work in soil, and what research says about crops.
-h1: How humates work
+description: How humic and fulvic acids grow bigger roots, improve nutrient uptake, and get more from your fertilizer. A plain-language guide with research.
+h1: How humates grow better crops
 eyebrow: The science, in plain language
-lede: Humates are concentrated, ancient humus. Here's what they are, what they do in soil, and what researchers have found, including where the evidence is mixed.
+lede: Humates are concentrated, ancient humus, the most active part of rich soil. Here's how they put your fertilizer to work, build roots, and strengthen your soil.
 image: ../../assets/photos/root-mass-held.jpg
 imageAlt: A grower holding up a plant with a large, dense root mass and soil still attached
 ---
@@ -25,26 +25,24 @@ Humusolver is a concentrate that contains both. [[LABEL CHECK: guaranteed humic 
 
 ## What they do in soil
 
-Scientists generally describe three ways humic substances work:
+1. **Hold nutrients where roots can reach them.** Humic substances carry many negatively charged sites that hold calcium, magnesium, potassium, and micronutrients in the root zone. They also form complexes that keep phosphorus and trace elements available instead of locked up.
+2. **Build soil structure.** Humus binds clay into aggregates, which improves water infiltration, aeration, and tilth, and helps soil resist crusting and erosion.
+3. **Feed soil life.** Humic materials support the microbes that cycle nutrients from residue and manure.
 
-1. **Holding nutrients.** Humic substances have many negatively charged sites. They help hold positively charged nutrients like calcium, magnesium, potassium, and micronutrients in the root zone, and they can form complexes that keep phosphorus and trace elements more available.
-2. **Building structure.** Humus binds with clay to form aggregates. Good aggregation improves water infiltration, aeration, and tilth, and resists crusting and erosion.
-3. **Feeding soil life.** Humic materials are part of the environment soil microbes live in. Healthy microbial activity drives nutrient cycling.
+## What they do for your crop
 
-## What research says about plants
+**Bigger roots.** Root growth is the most consistent benefit in the research. A meta-analysis of published studies found humic substances increased root growth about **21%** and shoot growth about **22%** on average (Rose et al., 2014). More roots reach more water and more nutrients.
 
-Many studies report that humic substances can increase **root growth** and **nutrient uptake**. Researchers class them as **biostimulants**: materials that work alongside fertilizer, not instead of it.
+**More from your fertilizer.** A 2024 meta-analysis of field studies found humic acid raised nitrogen use efficiency **27%**, nitrogen uptake **17%**, and crop yield **12%** on average (Ma et al., 2024). Field trials have also measured higher nitrogen and phosphorus uptake, with potato yields up 13–17% (Verlinden et al., 2009).
 
-Yield results are more variable:
+**Resilience in tough years.** In USDA-ARS trials in Iowa, a humic product increased corn yield by up to **19%** on an eroded hilltop during the 2012 drought (Olk et al., 2021). Humus also holds water, which helps crops on light or worn ground ride out dry spells.
 
-- Two large reviews that pooled many published studies found **positive average responses**. One found about 21% more root and shoot growth (Rose et al., 2014). The other found about 12% more yield (Ma et al., 2024). Results depended heavily on the crop, soil, climate, and the source and rate of the humic material.
-- USDA-ARS field trials in Iowa corn measured **1–4% yield gains** across replicated strips. Gains were larger on droughty, eroded ground in a dry year.
-- Some well-designed studies found **no benefit**, including vegetable trials in California and season-total pasture yield in Europe.
+**Healthier soil over time.** Reviews report that humic acids can improve soil structure, water-holding capacity, and nutrient availability (Ampong et al., 2022).
 
-We summarize all of these, positive and negative, on our [research page](/research/).
+See every study, with links, on our [research page](/research/).
 
-## What humates are not
+## Getting the most from humates
 
-- They are **not a replacement for fertilizer**. They work alongside your fertility program.
-- They are **not a pesticide** and are not intended to prevent or treat plant disease.
-- Results **vary by field**. Compare treated strips against untreated check strips to see what they do on your ground.
+- **Use them with your fertility program.** Humates make fertilizer work harder. They don't replace it.
+- **Use them where they count most.** Research shows the biggest gains on lower-nitrogen, near-neutral soils and on stressed or eroded ground.
+- **See it on your own ground.** Apply Humusolver to most of a field, leave a strip untreated, and compare at harvest. We're confident you'll see the difference.

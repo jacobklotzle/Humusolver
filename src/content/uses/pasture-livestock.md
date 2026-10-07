@@ -16,9 +16,9 @@ researchTags: [pasture, soil]
 
 ## Why soil comes first on grazing ground
 
-Grazed and hayed fields lose organic matter every time forage leaves the field. Humus is the stable, dark fraction of organic matter. It holds water and nutrients where roots can reach them and supports the soil life that cycles nutrients from manure and residue.
+Every bale and every grazing day takes organic matter off the field. Humus is the stable, dark part of that organic matter. It holds water and nutrients where roots can reach them and feeds the soil life that cycles nutrients from manure and residue.
 
-Humates are a concentrated, natural source of humic and fulvic acids. Adding them is one way to support that soil system, especially on lighter or worn-out ground.
+Humates put concentrated humic and fulvic acids back. Research on humic substances shows **more root growth** (about 21% on average across studies; Rose et al., 2014), and reviews report better **soil structure and water-holding capacity** (Ampong et al., 2022). That means deeper-rooted stands that handle dry spells and heavy traffic better.
 
 ## How to apply on pasture and hay ground
 
