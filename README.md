@@ -47,6 +47,7 @@ Quote requests and questions are saved to a Google Sheet and emailed to you. Set
 ## Environment variables
 
 See [`.env.example`](.env.example). Set them in Railway under **Service → Variables**, and never commit real values.
+Paste bare values only. Don't use quotes or `< >` around them.
 
 ## Going live
 

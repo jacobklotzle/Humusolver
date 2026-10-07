@@ -50,7 +50,7 @@ src/
 public/              # static files: favicon, robots.txt, og images
 scripts/             # placeholder report, Apps Script source + setup guide (apps-script/)
 server.mjs           # Railway entry: redirects, compression, headers, preview auth
-railway.json         # Railway build/start/healthcheck config
+railway.json         # informational only: Railway deprecated config-as-code and ignores it for this service
 ```
 
 ## Content rules (non-negotiable)
@@ -129,3 +129,10 @@ Never commit secrets. Keep `.env.example` up to date when adding a variable. Set
 - YAML values containing `[[TYPE: note]]` must be quoted, because the colon breaks plain YAML.
 - The `file()` loader doesn't preserve order, so `faq.yaml` and `photos.yaml` entries carry an `order` field.
 - Astro 7 uses the `unified()` Markdown processor from `@astrojs/markdown-remark` so the placeholder remark plugin runs.
+- Railway uses its defaults (`npm run build`, then `npm start`). Settings like the healthcheck path (`/healthz`) are set in the
+  Railway dashboard, not `railway.json`. Auto-deploy depends on the **Railway App GitHub installation** (repo access:
+  Humusolver only). If it says "Could not load branches", check github.com/settings/installations.
+- Env values are read leniently (surrounding whitespace, quotes, and `<>` are stripped) because brackets pasted from
+  docs caused real outages. Still, never write `<placeholder>` in paste-ready instructions.
+- Debug secrets by length: the server logs `Preview password gate ON (N characters)`, and on a lead auth failure it
+  logs the length of `APPS_SCRIPT_SECRET` (the expected length is 64).
