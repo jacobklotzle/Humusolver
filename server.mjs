@@ -14,8 +14,10 @@ const compress = compression(); // gzip/brotli for HTML, CSS, JS, JSON, SVG
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '0.0.0.0';
 const PREVIEW = process.env.SITE_MODE !== 'production';
-// Trim whitespace and stray quotes: easy to pick up when pasting into Railway's Raw Editor.
-const PASSWORD = (process.env.PREVIEW_PASSWORD || '').trim().replace(/^(['"])(.*)\1$/, '$2');
+// Forgiving compare: ignore surrounding whitespace, quotes, and <angle brackets> (easy to paste
+// into Railway's Raw Editor from a template), on both the stored and the typed password.
+const clean = (v = '') => v.trim().replace(/^(['"<])(.*)(['">])$/, '$2').trim();
+const PASSWORD = clean(process.env.PREVIEW_PASSWORD);
 const CANONICAL = process.env.SITE_URL ? new URL(process.env.SITE_URL) : null;
 
 function safeEqual(a, b) {
@@ -29,7 +31,7 @@ function authorized(req) {
   const header = req.headers.authorization || '';
   if (!header.startsWith('Basic ')) return false;
   const decoded = Buffer.from(header.slice(6), 'base64').toString();
-  const pass = decoded.slice(decoded.indexOf(':') + 1).trim(); // username is ignored
+  const pass = clean(decoded.slice(decoded.indexOf(':') + 1)); // username is ignored
   return safeEqual(pass, PASSWORD);
 }
 
