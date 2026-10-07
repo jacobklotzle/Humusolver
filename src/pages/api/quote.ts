@@ -6,7 +6,9 @@ import { parseLead, labelFor, OPERATIONS, PRODUCTS, DELIVERY, CONTACT_PREF, type
 
 export const prerender = false;
 
-const env = (k: string) => process.env[k] ?? '';
+// Forgiving read: ignore surrounding whitespace, quotes, and <angle brackets> picked up when
+// pasting into Railway's Raw Editor (a bracketed secret silently breaks the Apps Script auth).
+const env = (k: string) => (process.env[k] ?? '').trim().replace(/^(['"<])(.*)(['">])$/, '$2').trim();
 const MIN_FILL_MS = 3000;
 
 // Tiny in-memory rate limit: 6 submissions per IP per 10 minutes.
@@ -122,7 +124,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       signal: AbortSignal.timeout(15000),
     });
     const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
-    if (!res.ok || !data.ok) throw new Error(`Apps Script responded ${res.status}: ${data.error ?? 'unknown error'}`);
+    if (!res.ok || !data.ok) {
+      const hint = data.error === 'unauthorized' ? ` (APPS_SCRIPT_SECRET in Railway is ${env('APPS_SCRIPT_SECRET').length} chars; the script's secret is 64)` : '';
+      throw new Error(`Apps Script responded ${res.status}: ${data.error ?? 'unknown error'}${hint}`);
+    }
   } catch (err) {
     // Keep the lead in the Railway logs so it's never lost.
     console.error('[lead] Failed to forward lead:', err, JSON.stringify(row));
