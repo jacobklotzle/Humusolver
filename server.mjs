@@ -4,7 +4,7 @@
 import http from 'node:http';
 import { timingSafeEqual } from 'node:crypto';
 import compression from 'compression';
-import { redirects } from './src/lib/redirects.mjs';
+import { redirectFor } from './src/lib/redirects.mjs';
 
 process.env.ASTRO_NODE_AUTOSTART = 'disabled';
 const { handler } = await import('./dist/server/entry.mjs');
@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
 
-  const target = redirects[url.pathname];
+  const target = redirectFor(url.pathname);
   if (target) {
     res.writeHead(301, { Location: target + url.search });
     return res.end();
